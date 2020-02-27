@@ -1,0 +1,2 @@
+# friendzone
+Friendzone your crushes
