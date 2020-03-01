@@ -28,6 +28,7 @@
 	password VARCHAR(100) NOT NULL,
 	PRIMARY KEY(email)
 )`
+- Since there's no frontend atm, you can use postman to test that the accounts api works and that things are getting added to the database
 
 ### Misc
 - There's nothing on the frontend yet
