@@ -30,5 +30,6 @@
 )`
 
 ### Misc
+- There's nothing on the frontend yet
 - You'll notice most of the database functions use callback syntax, hoping to change this to async/await later.
 - Because we're running local instances of the db, adding a table to the db means we all have to manually add it, we should probably figure out all the schemas, have 1 person add it to their local database, export the CREATE TABLE sqls and have the others just copy and paste it
