@@ -9,5 +9,5 @@
 
 #### Backend
 - `npm install` in the root directory to install all dependencies
-- `npm start` to build & start the Node.js server
+- `nodemon server` to start the Node.js server
 
