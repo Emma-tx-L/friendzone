@@ -1,2 +1,3 @@
-# friendzone
-Friendzone your crushes
+# CPSC 304 Group Project 3
+## FriendZone
+
