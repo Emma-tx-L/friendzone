@@ -4,11 +4,13 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Login from './components/Login';
+import Home from './components/Home';
 
 const App = (
     <Router>
       <div>
         <Route exact path="/" component={Login} />
+        <Route path="/home" component={Home} />
       </div>
     </Router>
 );
