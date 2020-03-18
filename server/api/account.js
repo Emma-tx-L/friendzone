@@ -1,46 +1,31 @@
-var express = require('express');
-var Account = require('../models/account');
 const db = require('../database');
+const Router = require('express-promise-router');
 
-var router = express.Router();
-//Sorry about the commented out code, leaving it here until fully converted to async await
-router.get('/', (req, res) => {
-    // Account.retrieveAll(function(err,accounts){
-    //     if(err){
-    //         return res.json(err);
-    //     }
-    //     // return res.json(accounts)
-    // })
-    db.query('SELECT email from account', function (err,accounts) {
-        if (err.error){
-            return res.json(err);
-        }
-        console.log('db.query');
-        console.log('accounts: ' + JSON.stringify(accounts));
-        return res.json(accounts);
-    });
+var router = new Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const { rows } = await db.query('SELECT email from account');
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(error);
+    }
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', async (req, res) => {
     let email = req.query.email;
     let password = req.query.password;
-    // Account.getByEmail(email, password, function(err, accounts) {
-    //     if (err){
-    //         return res.json(err);
-    //     }
-    //     return res.json(acounts);
-    // })
 
     const text = 'SELECT * FROM account WHERE email=$1 AND password=$2';
     const values = [email, password];
-    db.query(text, values, function(err,response) {
-        if (err.error){
-            console.log('err.error: ' + err.error);
-            return res.json(err);
-        }
-        console.log('response: ' + JSON.stringify(response));
-        res.json(response);
-    })
+    try {
+        const { rows } = await db.query(text, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(err);
+    }
 })
 
 router.post('/', (req, res)=>{

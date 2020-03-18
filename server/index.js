@@ -23,11 +23,15 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-db.query('SELECT NOW()', (err, res) => {
-    if (err.error){
-        return console.log(err.error);
+async function testDb() {
+    try {
+        const { rows } = await db.query('SELECT NOW()');
+        console.log(`Postgresql connected ${rows[0].now}`);
+    } catch(e){
+        console.log('error: ' + e);
     }
-    console.log(`Postgresql connected ${res[0].now}`)
-})
+}
+
+testDb();
 
 module.exports = app;
