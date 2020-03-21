@@ -33,6 +33,9 @@ class Login extends React.Component {
     // http://localhost:5000/api/account/login/?email=jon@gmail.com&password=1234
     const res = await axios.get("http://localhost:5000/api/account/login?" + 'email=' + email + '&password=' + password);
     if (res.data.length > 0){
+      console.log(res.data);
+      localStorage.setItem('profileID', res.data[0].id);
+      localStorage.setItem('email', res.data[0].email);
       this.setState({redirect: true});
     }
     else {
@@ -55,8 +58,8 @@ class Login extends React.Component {
   
 
   render() {
-    console.log(this.state.email);
-    console.log(this.state.password);
+    // console.log(this.state.email);
+    // console.log(this.state.password);
     return (
       <Container component="main" maxWidth="xs">
         {this.redirectOnLogin()}
