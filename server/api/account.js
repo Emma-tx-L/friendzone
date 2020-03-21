@@ -17,16 +17,16 @@ router.get('/login', async (req, res) => {
     let email = req.query.email;
     let password = req.query.password;
 
-    const text = 'SELECT * FROM account WHERE email=$1 AND password=$2';
+    const text = 'SELECT a.email, p.ID FROM account a LEFT JOIN profile p ON a.email=p.email WHERE a.email=$1 AND a.password=$2';
     const values = [email, password];
     try {
         const { rows } = await db.query(text, values);
         res.json(rows);
     } catch(e){
         console.log('error: ' + e);
-        return res.json(err);
+        return res.json(e);
     }
-})
+});
 
 router.post('/', (req, res)=>{
     let email = req.body.email;
