@@ -8,20 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-});
-
-/**
- * 
- * @param {event, time, place} props 
- */
-
 export default class MediaCard extends React.Component{
     constructor(props) {
         super(props);

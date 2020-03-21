@@ -16,7 +16,6 @@ export default class MyEvents extends React.Component {
     getMyEvents = async () => {
         const profile = localStorage.getItem('profileID');
         const res = await axios.get("http://localhost:5000/api/event/my-events?" + 'profile=' + profile);
-        const events = [];
         if (res.data.length > 0){
             res.data.forEach((result) => {
                 const event = {
@@ -33,10 +32,9 @@ export default class MyEvents extends React.Component {
             this.forceUpdate();
         }
         else {
-        alert('No events registered');
+            alert('No events registered');
         }
     }
-  
 
     render() {
         return (
