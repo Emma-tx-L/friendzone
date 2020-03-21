@@ -1,0 +1,28 @@
+@import url("index.css");
+
+.icons {
+  color: var(--teal);
+  margin: 0.5rem;
+  }
+
+.user {
+  font-size: 5rem;
+  display: inline-block;
+}
+
+.user-icon {
+  width: 100%;
+  color: var(--teal);
+}
+.circle-icon {
+  text-align: center;
+  margin: 0;
+  background: var(--fadedblue);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.name {
+  font-size: 1rem;
+}

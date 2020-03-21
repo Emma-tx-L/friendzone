@@ -1,3 +1,15 @@
+/* Color Palette */
+
+:root {
+  --coralpink: #ed6a5a;
+  --yellow: #f4f1bb;
+  --lightblue: #9bc1bc;
+  --teal: #5ca4a9;
+  --greengrey: #e6ebe0;
+  --fadedblue: rgba(131, 173, 173, 0.527);
+
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +23,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+

@@ -1,4 +1,7 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
+
+import Container from '@material-ui/core/Container';
 
 class Home extends React.Component {
   constructor(props) {
@@ -8,7 +11,11 @@ class Home extends React.Component {
   }
   render() {
     return (
-        <h1>Home</h1>
+      <Container>
+        <Navbar>
+        </Navbar >
+          <h1>Home</h1>
+      </Container>
     );
   }
 }
