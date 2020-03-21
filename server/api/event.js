@@ -3,16 +3,6 @@ const Router = require('express-promise-router');
 
 var router = new Router();
 
-router.get('/', async (req, res) => {
-    try {
-        const { rows } = await db.query('SELECT email from account');
-        res.json(rows);
-    } catch(e){
-        console.log('error: ' + e);
-        return res.json(error);
-    }
-});
-
 router.get('/my-events', async (req, res) => {
     let profile = req.query.profile;
     console.log(profile);
@@ -36,15 +26,5 @@ router.get('/my-events', async (req, res) => {
         return res.json(e);
     }
 })
-
-router.post('/', (req, res)=>{
-    let email = req.body.email;
-    let password = req.body.password;
-    Account.insert(email, password, (err, result)=> {
-        if (err)
-            return res.json(err);
-        return res.json(result);
-    })
-});
 
 module.exports = router;
