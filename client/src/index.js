@@ -6,13 +6,15 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import Login from './components/Login';
 import Home from './components/Home';
 import MyEvents from './components/MyEvents';
+import EventPage from './components/EventPage';
 
 const App = (
     <Router>
       <div>
         <Route exact path="/" component={Login} />
         <Route path="/home" component={Home} />
-        <Route path="/my-events" component={MyEvents} />
+        <Route exact path="/my-events" component={MyEvents} />
+        <Route exact path="/my-events/:id" component={EventPage} />
       </div>
     </Router>
 );

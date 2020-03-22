@@ -28,11 +28,11 @@ router.get('/my-events', async (req, res) => {
 })
 
 router.get('/my-events/:id', async (req, res) => {
-    let eventId = req.query.id;
+    let eventId = req.params.id;
     const query = 
     `SELECT * 
      FROM event
-     WHERE id=$1`;
+     WHERE id=$1;`;
     const values = [eventId];
     try {
         const { rows } = await db.query(query, values);
