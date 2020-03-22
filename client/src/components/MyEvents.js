@@ -4,15 +4,22 @@ import Container from '@material-ui/core/Container';
 import EventCard from '../components/EventCard';
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
-import { GridList } from '@material-ui/core';
+import { GridList, GridListTile } from '@material-ui/core';
   
 export default class MyEvents extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             events: [],
+            upcomingEvents: [],
+            adminEvents: [],
+            pastEvents: []
         };
         this.colour = '#ffffff';
+    }
+    
+    componentDidMount() {
+        this.getMyEvents();
     }
 
     getMyEvents = async () => {
@@ -21,22 +28,46 @@ export default class MyEvents extends React.Component {
         const fetchedEvents = [];
         if (res.data.length > 0){
             res.data.forEach((result) => {
+                const date = new Date(result.starttime);
+                const datestring = date.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute:'2-digit',});
                 const event = {
                     id: result.eventid,
                     name: result.name,
-                    starttime: result.starttime,
-                    place: `${result.streetnumber} ${result.streetname}`
+                    starttime: datestring,
+                    date: date,
+                    place: `${result.streetnumber} ${result.streetname}`,
+                    isAdmin: result.isadmin
                 }
 
                 fetchedEvents.push(event);
             })
             console.log(res.data);
-            console.log(this.events);
             this.setState({ events: fetchedEvents});
+            this.sortMyEvents();
         }
         else {
             alert('No events registered');
         }
+    }
+
+    sortMyEvents = () => {
+        const upcomingEvents = [];
+        const adminEvents = [];
+        const pastEvents = [];
+        this.state.events.forEach(event => {
+            if (event.date > Date.now()) {
+                pastEvents.push(event);
+            } else {
+                upcomingEvents.push(event);
+                if(event.isAdmin) {
+                    adminEvents.push(event)
+                }
+            }
+        })
+
+        this.setState({ pastEvents: pastEvents});
+        this.setState({ upcomingEvents: upcomingEvents});
+        this.setState({ adminEvents: adminEvents});
     }
 
     render() {
@@ -60,29 +91,42 @@ export default class MyEvents extends React.Component {
                     Upcoming Events
                 </Typography>
             </Container>
+            <Container maxWidth="md" style={{backgroundColor: this.colour }}>
+                <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
+                {this.state.upcomingEvents.map(event => (
+                    <GridListTile cols={1} style={{ height: 'auto' }} key={event.id}>
+                        <EventCard key={event.id} id={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
+                    </GridListTile>
+                ))}
+                </GridList>
+            </Container>
             <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
-            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+                <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Created By You
                 </Typography>
             </Container>
+            <Container maxWidth="md" style={{backgroundColor: this.colour }}>
+                <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
+                {this.state.adminEvents.map(event => (
+                    <GridListTile cols={1} style={{ height: 'auto' }} key={event.id}>
+                        <EventCard key={event.id} id={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
+                    </GridListTile>
+                ))}
+                </GridList>
+            </Container>
             <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
-            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+                <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Past Events
                 </Typography>
             </Container>
             <Container maxWidth="md" style={{backgroundColor: this.colour }}>
-                    <Button
-                        variant="contained"
-                        color="default"
-                        onClick={this.getMyEvents}
-                    >
-                        Get Events
-                    </Button>
-                    <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
-                    {this.state.events.map(event => (
+                <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
+                {this.state.pastEvents.map(event => (
+                    <GridListTile cols={1} style={{ height: 'auto' }} key={event.id}>
                         <EventCard key={event.id} id={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
-                    ))}
-                    </GridList>
+                    </GridListTile>
+                ))}
+                </GridList>
             </Container>
         </Container>
         );
