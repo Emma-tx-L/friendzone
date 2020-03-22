@@ -14,11 +14,17 @@ export default class MediaCard extends React.Component{
         this.state = {
         };
         this.events = []
+        this.handleEventClick = this.handleEventClick.bind(this);
+    }
+
+    async handleEventClick(eventId) {
+        alert(eventId);
     }
 
     render() {
+        const { id } = this.props;
         return (
-            <Card className={`eventcard-${this.props.key}`}>
+            <Card onClick={() => this.handleEventClick(id)} className={`eventcard-${this.props.key}`}>
             <CardActionArea>
                 <CardMedia
                 className="eventcard-media"

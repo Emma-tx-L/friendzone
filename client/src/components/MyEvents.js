@@ -49,7 +49,8 @@ export default class MyEvents extends React.Component {
             </Button>
             <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
             {this.state.events.map(event => (
-                <EventCard key={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
+                // Added id prop, because you cant access the key prop to get event.id
+                <EventCard key={event.id} id={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
             ))}
             </GridList>
         </Container>
