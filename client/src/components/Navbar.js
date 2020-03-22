@@ -10,7 +10,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import EventIcon from '@material-ui/icons/Event';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -30,8 +30,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function Navbar() {
   const classes = useStyles();
+  const history = useHistory();
+  const loggedIn = localStorage.getItem('profileID');
+
+  const handleLogout = () => {
+    localStorage.clear();
+    history.push('/');
+  }
 
   return (
+    !loggedIn ? null : 
     <div className={classes.root}>
       <CssBaseline />
       <Drawer
@@ -70,12 +78,12 @@ export default function Navbar() {
               Your Events</span>
             </Link>
           </ListItem>
-          <ListItem button>
-            <Link className="nav-btn" to="/">
+          <ListItem button onClick={handleLogout}>
+            <div className="nav-btn">
               <ExitToAppIcon className="icons"/>
               <span>
               Logout</span>
-            </Link>
+            </div>
           </ListItem>
         </List>
       </Drawer>

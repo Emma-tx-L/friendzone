@@ -40,12 +40,8 @@ export default class MediaCard extends React.Component{
     render() {
         const { id } = this.props;
         return (
-<<<<<<< HEAD
-            <Card class="card" className={`eventcard-${this.props.key}`}>
-=======
             <Card onClick={() => this.handleEventClick()} className={`eventcard-${this.props.key}`}>
             {this.handleRedirect()}
->>>>>>> master
             <CardActionArea>
                 <CardMedia
                 className="eventcard-media"

@@ -48,7 +48,7 @@ class Login extends React.Component {
       return (
         <Redirect
           to={{
-            pathname: "/home/?email=" + this.state.email,
+            pathname: "/home",
             // state: { username: this.state.username }
           }}
         />
