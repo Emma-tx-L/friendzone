@@ -5,6 +5,7 @@ import EventCard from '../components/EventCard';
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
 import { GridList, GridListTile } from '@material-ui/core';
+import EventGrid from '../components/EventGrid';
   
 export default class MyEvents extends React.Component {
     constructor(props) {
@@ -91,60 +92,29 @@ export default class MyEvents extends React.Component {
                     Upcoming Events
                 </Typography>
             </Container>
-            <Container maxWidth="md" style={{backgroundColor: this.colour }}>
-                <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
-                {this.state.upcomingEvents.map(event => (
-                    <GridListTile cols={1} style={{ height: 'auto' }} key={event.id}>
-                        <EventCard key={event.id} id={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
-                    </GridListTile>
-                ))}
-                </GridList>
-            </Container>
-            <NoEvents show={this.state.upcomingEvents.length == 0} />
+            <EventGrid 
+                colour = {this.colour}
+                events = {this.state.upcomingEvents}
+            />
             <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Created By You
                 </Typography>
             </Container>
-            <Container maxWidth="md" style={{backgroundColor: this.colour }}>
-                <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
-                {this.state.adminEvents.map(event => (
-                    <GridListTile cols={1} style={{ height: 'auto' }} key={event.id}>
-                        <EventCard key={event.id} id={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
-                    </GridListTile>
-                ))}
-                </GridList>
-            </Container>
-            <NoEvents show={this.state.adminEvents.length == 0} />
+            <EventGrid 
+                colour = {this.colour}
+                events = {this.state.adminEvents}
+            />
             <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Past Events
                 </Typography>
             </Container>
-            <Container maxWidth="md" style={{backgroundColor: this.colour }}>
-                <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
-                {this.state.pastEvents.map(event => (
-                    <GridListTile cols={1} style={{ height: 'auto' }} key={event.id}>
-                        <EventCard key={event.id} id={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
-                    </GridListTile>
-                ))}
-                </GridList>
-            </Container>
-            <NoEvents show={this.state.pastEvents.length == 0} />
+            <EventGrid 
+                colour = {this.colour}
+                events = {this.state.pastEvents}
+            />
         </Container>
         );
-    }
-}
-
-function NoEvents (props) {
-    if (props.show)
-        return (
-        <Container maxWidth="md" style={{position: 'relative', backgroundColor: '#ffffff', height: '15vh'}}>
-            <Typography variant="subtitle1" style={{ position: 'absolute', letterSpacing:'0.05em', color:'#95cbe8', top: '25%', left: '40%', transform: 'translateY(-50%)'}}>
-                No events here!
-            </Typography>
-        </Container>);
-    else {
-        return null;
     }
 }
