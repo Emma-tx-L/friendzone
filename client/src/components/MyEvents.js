@@ -1,10 +1,8 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
 import Container from '@material-ui/core/Container';
-import EventCard from '../components/EventCard';
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
-import { GridList, GridListTile } from '@material-ui/core';
 import EventGrid from '../components/EventGrid';
   
 export default class MyEvents extends React.Component {
