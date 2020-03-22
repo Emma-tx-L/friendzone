@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
+import MyEvents from './MyEvents';
 import Container from '@material-ui/core/Container';
 
 class Home extends React.Component {
@@ -12,9 +14,8 @@ class Home extends React.Component {
   render() {
     return (
       <Container>
-        <Navbar>
-        </Navbar >
-          <h1>Home</h1>
+        <Navbar/>
+        <h1>Home</h1>
       </Container>
     );
   }

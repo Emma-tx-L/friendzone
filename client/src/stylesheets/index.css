@@ -1,6 +1,9 @@
-/* Color Palette */
+@import url('https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 :root {
+
+  /* Color Palette */
   --coralpink: #ed6a5a;
   --yellow: #f4f1bb;
   --lightblue: #9bc1bc;
@@ -8,13 +11,27 @@
   --greengrey: #e6ebe0;
   --fadedblue: rgba(131, 173, 173, 0.527);
 
+  /* Margins */
+  --m-relatedElements: 1rem;
+  --m-unrelatedElements: 1.5rem;
+
+  /* Padding */
+  --p-relatedElements: 1rem;
+  --p-unrelatedElements: 1.5rem;
+
+  /* Font Sizes */
+  --hero: 36px;
+  --title: 28px;
+  --subtitle: 22px;
+  --body: 14px;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -22,5 +39,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
 }
 

@@ -2,18 +2,19 @@
 
 .icons {
   color: var(--teal);
-  margin: 0.5rem;
+  margin: -7px 1rem;
   }
 
 .user {
-  font-size: 5rem;
-  display: inline-block;
+  display: inline-flex;
+  margin: var(--m-unrelatedElements);
 }
 
 .user-icon {
-  width: 100%;
   color: var(--teal);
+  margin: 25%;
 }
+
 .circle-icon {
   text-align: center;
   margin: 0;
@@ -24,5 +25,13 @@
 }
 
 .name {
+  margin: 0.75rem var(--m-unrelatedElements);
   font-size: 1rem;
+  text-align: center;
+}
+
+.nav-btn {
+  text-decoration: none;
+  padding: var(--p-relatedElements);
+  color: black;
 }

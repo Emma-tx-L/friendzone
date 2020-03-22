@@ -10,6 +10,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import EventIcon from '@material-ui/icons/Event';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -24,11 +25,7 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-  },
+  toolbar: theme.mixins.toolbar
 }));
 
 export default function Navbar() {
@@ -46,27 +43,39 @@ export default function Navbar() {
         anchor="left"
       >
         <div className={classes.toolbar} />
-        <div class="user">
-          <div class="circle-icon">
-        <PersonOutlineIcon className="user-icon"/>
+        <div className="user">
+          <div className="circle-icon">
+          <PersonOutlineIcon className="user-icon"/>
           </div>
-          <div class="name">Jane Doe</div>
+          <div className="name">Jane Doe</div>
         </div>
         <List>
-          <ListItem>
-            <HomeIcon className="icons"/>Home
+          <ListItem button>
+            <Link icon={<HomeIcon/>} className="nav-btn" to="/home">
+              <HomeIcon className="icons"/>
+              <span>Home</span>
+            </Link>
           </ListItem>
-          <ListItem>
-            <PersonIcon className="icons"/>
-            Profile
+          <ListItem button>
+            <Link className="nav-btn" to="/profile">
+                <PersonIcon className="icons"/>
+                <span>
+                Profile</span>
+            </Link>
           </ListItem>
-          <ListItem>
-            <EventIcon className="icons"/>
-            Your Events
+          <ListItem button>
+            <Link className="nav-btn" to="/my-events">
+              <EventIcon className="icons"/>
+              <span>
+              Your Events</span>
+            </Link>
           </ListItem>
-          <ListItem>
-            <ExitToAppIcon className="icons"/>
-            Logout
+          <ListItem button>
+            <Link className="nav-btn" to="/">
+              <ExitToAppIcon className="icons"/>
+              <span>
+              Logout</span>
+            </Link>
           </ListItem>
         </List>
       </Drawer>

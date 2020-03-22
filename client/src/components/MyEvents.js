@@ -2,6 +2,7 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import Container from '@material-ui/core/Container';
 import EventCard from '../components/EventCard';
+import Navbar from '../components/Navbar';
 import axios from "axios";
 import { GridList } from '@material-ui/core';
 
@@ -48,7 +49,7 @@ export default class MyEvents extends React.Component {
             </Button>
             <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
             {this.events.map(event => (
-                <EventCard key={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
+                <EventCard key={event.id} event={event.name} time={event.starttime} place={event.place} className="card"></EventCard>
             ))}
             </GridList>
         </Container>
