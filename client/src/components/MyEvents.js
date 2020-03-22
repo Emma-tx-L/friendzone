@@ -100,6 +100,7 @@ export default class MyEvents extends React.Component {
                 ))}
                 </GridList>
             </Container>
+            <NoEvents show={this.state.upcomingEvents.length == 0} />
             <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Created By You
@@ -114,6 +115,7 @@ export default class MyEvents extends React.Component {
                 ))}
                 </GridList>
             </Container>
+            <NoEvents show={this.state.adminEvents.length == 0} />
             <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Past Events
@@ -128,7 +130,21 @@ export default class MyEvents extends React.Component {
                 ))}
                 </GridList>
             </Container>
+            <NoEvents show={this.state.pastEvents.length == 0} />
         </Container>
         );
+    }
+}
+
+function NoEvents (props) {
+    if (props.show)
+        return (
+        <Container maxWidth="md" style={{position: 'relative', backgroundColor: '#ffffff', height: '15vh'}}>
+            <Typography variant="subtitle1" style={{ position: 'absolute',letterSpacing:'0.05em', color:'#95cbe8', top: '25%', left: '50vh', transform: 'translateY(-50%)'}}>
+                No events here!
+            </Typography>
+        </Container>);
+    else {
+        return null;
     }
 }
