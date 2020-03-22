@@ -19,8 +19,8 @@ const App = (
         <div className="pages">
           <Route path="/home" component={Home} />
           <Route path="/profile" component={Profile} />
-          <Route path="/my-events" component={MyEvents} />
-          <Route path="/my-events/:id" component={EventPage} />
+          <Route exact path="/my-events" component={MyEvents} />
+          <Route exact path="/my-events/:id" component={EventPage} />
         </div>
     </Router>
 );
