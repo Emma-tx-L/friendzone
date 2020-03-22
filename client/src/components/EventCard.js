@@ -6,19 +6,46 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Redirect } from "react-router-dom";
 import '../stylesheets/EventCard.css';
 
 export default class MediaCard extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            redirect: false,
+            id: props.id
         };
         this.events = []
+        this.handleEventClick = this.handleEventClick.bind(this);
     }
 
+    async handleEventClick() {
+        this.setState({redirect: true});
+    }
+
+    handleRedirect() {
+        if (this.state.redirect) {
+          return (
+            <Redirect
+              to={{
+                pathname: "/my-events/" + this.state.id,
+                state: { id: this.state.id }
+              }}
+            />
+          );
+        }
+      }
+
     render() {
+        const { id } = this.props;
         return (
+<<<<<<< HEAD
             <Card class="card" className={`eventcard-${this.props.key}`}>
+=======
+            <Card onClick={() => this.handleEventClick()} className={`eventcard-${this.props.key}`}>
+            {this.handleRedirect()}
+>>>>>>> master
             <CardActionArea>
                 <CardMedia
                 className="eventcard-media"

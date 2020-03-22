@@ -8,15 +8,17 @@ import Login from './components/Login';
 import Home from './components/Home';
 import LandingPage from './components/LandingPage';
 import MyEvents from './components/MyEvents';
+import EventPage from './components/EventPage';
 
 const App = (
     <Router>
-        <Route exact path="/" component={LandingPage}/>
-        <Route path="/login" component={Login} />
-        <Route path="/home" component={Home}/>
-        <Route path="/my-events" component={MyEvents}/>
-
-     </Router>
+      <div>
+        <Route exact path="/" component={Login} />
+        <Route path="/home" component={Home} />
+        <Route exact path="/my-events" component={MyEvents} />
+        <Route exact path="/my-events/:id" component={EventPage} />
+      </div>
+    </Router>
 );
 
 ReactDOM.render(App, document.getElementById('root'));

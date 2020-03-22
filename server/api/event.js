@@ -27,4 +27,20 @@ router.get('/my-events', async (req, res) => {
     }
 })
 
+router.get('/my-events/:id', async (req, res) => {
+    let eventId = req.params.id;
+    const query = 
+    `SELECT * 
+     FROM event
+     WHERE id=$1;`;
+    const values = [eventId];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
 module.exports = router;
