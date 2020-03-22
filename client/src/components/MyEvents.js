@@ -140,7 +140,7 @@ function NoEvents (props) {
     if (props.show)
         return (
         <Container maxWidth="md" style={{position: 'relative', backgroundColor: '#ffffff', height: '15vh'}}>
-            <Typography variant="subtitle1" style={{ position: 'absolute',letterSpacing:'0.05em', color:'#95cbe8', top: '25%', left: '50vh', transform: 'translateY(-50%)'}}>
+            <Typography variant="subtitle1" style={{ position: 'absolute', letterSpacing:'0.05em', color:'#95cbe8', top: '25%', left: '40%', transform: 'translateY(-50%)'}}>
                 No events here!
             </Typography>
         </Container>);
