@@ -8,7 +8,7 @@ router.get('/my-events', async (req, res) => {
     console.log(profile);
     const query = 
     `SELECT * FROM event e INNER JOIN
-	    (SELECT p.id, r.EventID
+	    (SELECT p.id, r.EventID, r.isAdmin
         FROM 
             profile p 
             INNER JOIN registered r
