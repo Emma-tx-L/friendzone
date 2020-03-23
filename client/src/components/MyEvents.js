@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from "@material-ui/core/Button";
 import Container from '@material-ui/core/Container';
+import EventCard from '../components/EventCard';
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
 import EventGrid from '../components/EventGrid';

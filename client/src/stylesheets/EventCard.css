@@ -1,0 +1,9 @@
+@import url("index.css");
+
+.card {
+  margin: var(--m-unrelatedElements);
+  padding: var(--p-unrelatedElements);
+  border: 1px rgb(211, 211, 211, 0.6) solid;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.2);
+}
