@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 
 app.use('/api/account', require('./api/account'));
 app.use('/api/event', require('./api/event'));
+app.use('/api/chat', require('./api/chat'));
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
