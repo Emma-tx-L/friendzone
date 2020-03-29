@@ -11,10 +11,10 @@ class Home extends React.Component {
     super(props);
     this.state = {
     };
-    URL = './src/assets/categories_fitness.png';
-    URL = '../assets/landingpage.png';
+    URL = `/src/assets/categories_fitness.png`;
+    // URL='https://pbs.twimg.com/media/EUTTGIZUMAAUQ2W?format=png&name=small';
     this.activityTypes = [
-      {type: 'Fitness', img: require(URL)},
+      {type: 'Fitness', img: URL},
       {type: 'Technology', img: URL},
       {type: 'Music', img: URL},
       {type: 'Arts', img: URL},
@@ -30,7 +30,7 @@ class Home extends React.Component {
           </Typography>
         </Container>
         <Container maxWidth="md" style={{backgroundColor: this.props.colour }}>
-          <GridList cellHeight="auto" className="category-card-list" cols={5} spacing={10}>
+          <GridList cellHeight="auto" className="category-card-list" cols={3} spacing={10}>
           {this.activityTypes.map(category => (
               <GridListTile cols={1} style={{ height: 'auto' }} key={category.type}>
                   <CategoryCard type={category.type} image={category.img}/>

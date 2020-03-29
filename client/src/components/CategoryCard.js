@@ -49,8 +49,8 @@ export default class CategoryCard extends React.Component{
                 className="category-media"
                 title={this.props.type}
                 style={{height: 10, paddingTop: '56.25%'}}
+                image={this.props.image}
                 >
-                    <img src={this.props.img}/>
                 </CardMedia>
                 <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
