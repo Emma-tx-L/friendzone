@@ -50,7 +50,7 @@ class Event extends React.Component {
 
       //Should I just put this in the above try catch?
       try{
-        const res = await axios.get("http://localhost:5000/api/chat/" + chatId);
+        const res = await axios.get("http://localhost:5000/api/chatcomment/" + chatId);
         if (res && res.status == 200){
           const chatComments = res.data;
           this.setState({chat: chatComments});
@@ -60,13 +60,17 @@ class Event extends React.Component {
       }
   }
 
-  sendMessage = () => {
+  sendMessage = async () => {
     const time = moment().format();
+    const content = this.state.message;
+    const chatid = this.state.chatId;
     const firstName = localStorage.getItem('firstname');
     //Using localStorage for profile id is a problem when testing
-    const profileId = localStorage.getItem('profileID');
-    this.socket.emit('CHAT_MESSAGE', {chatid: this.state.chatId, content: this.state.message, time: time, firstname: firstName, profileid: profileId  });
-    //TODO: store chat message in db!
+    const profileid = localStorage.getItem('profileID');
+    this.socket.emit('CHAT_MESSAGE', {chatid: chatid, content: content, time: time, firstname: firstName, profileid: profileid  });
+    const chatCommentToPost = { time, content, chatid, profileid };
+    const res = await axios.post("http://localhost:5000/api/chatcomment/", chatCommentToPost);
+    console.log('res: ' + res);
   }
 
   handleMessageChange = (e) => {
