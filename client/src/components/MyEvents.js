@@ -15,7 +15,6 @@ export default class MyEvents extends React.Component {
             adminEvents: [],
             pastEvents: []
         };
-        this.colour = '#ffffff';
     }
     
     componentDidMount() {
@@ -73,12 +72,12 @@ export default class MyEvents extends React.Component {
     render() {
         return (
         <Container component="main">
-            <Container maxWidth="md" style={{position: 'relative', backgroundColor: this.colour, height: '15vh'}}>
+            <Container maxWidth="md" style={{position: 'relative', height: '15vh'}}>
                 <Typography variant="h3" style={{ position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '65%', left: '3vh', transform: 'translateY(-50%)'}}>
                     YOUR EVENTS
                 </Typography>
             </Container>
-            <Container maxWidth="md" style={{backgroundColor: this.colour, position: 'relative', height: '8vh'}}>
+            <Container maxWidth="md" style={{position: 'relative', height: '8vh'}}>
                 <Button
                     variant="contained"
                     style={{ borderRadius: 25, position:'absolute', right:'50px', backgroundColor:'#5da4a9', color:'white'}}
@@ -86,31 +85,28 @@ export default class MyEvents extends React.Component {
                     Create Event
                 </Button>
             </Container>
-            <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
+            <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
             <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Upcoming Events
                 </Typography>
             </Container>
             <EventGrid 
-                colour = {this.colour}
                 events = {this.state.upcomingEvents}
             />
-            <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
+            <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Created By You
                 </Typography>
             </Container>
             <EventGrid 
-                colour = {this.colour}
                 events = {this.state.adminEvents}
             />
-            <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
+            <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Past Events
                 </Typography>
             </Container>
             <EventGrid 
-                colour = {this.colour}
                 events = {this.state.pastEvents}
             />
         </Container>

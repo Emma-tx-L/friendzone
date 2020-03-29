@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 
 /**
  * Props:
-*      { colour }    grid background colour
 *      { event }     event content  
  */
 export default class MyEvents extends React.Component {
@@ -19,7 +18,7 @@ export default class MyEvents extends React.Component {
     render() {
         if (this.props.events.length > 0)
         return (
-            <Container maxWidth="md" style={{backgroundColor: this.props.colour }}>
+            <Container maxWidth="md">
                 <GridList cellHeight="auto" className="event-card-list" cols={5} spacing={10}>
                 {this.props.events.map(event => (
                     <GridListTile cols={1} style={{ height: 'auto' }} key={event.id}>
@@ -31,7 +30,7 @@ export default class MyEvents extends React.Component {
         );
         else {
             return (
-                <Container maxWidth="md" style={{position: 'relative', backgroundColor: '#ffffff', height: '15vh'}}>
+                <Container maxWidth="md" style={{position: 'relative', height: '15vh'}}>
                     <Typography variant="subtitle1" style={{ position: 'absolute', letterSpacing:'0.05em', color:'#95cbe8', top: '25%', left: '40%', transform: 'translateY(-50%)'}}>
                         No events here!
                     </Typography>
