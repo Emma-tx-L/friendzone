@@ -5,7 +5,6 @@ var router = new Router();
 
 router.get('/my-events', async (req, res) => {
     let profile = req.query.profile;
-    console.log(profile);
     const query = 
     `SELECT * FROM event e INNER JOIN
 	    (SELECT p.id, r.EventID, r.isAdmin
@@ -34,6 +33,45 @@ router.get('/my-events/:id', async (req, res) => {
      FROM event
      WHERE id=$1;`;
     const values = [eventId];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ * Returns all events of category, regardless of start or end time
+ */
+router.get('/:type', async (req, res) => {
+    let activityType = req.params.type;
+    const query = 
+    `SELECT * 
+     FROM event
+     WHERE activitytype=$1;`;
+    const values = [activityType];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ * Returns all events of category that have not ended yet, based on current local time
+ */
+router.get('/upcoming/:type', async (req, res) => {
+    let activityType = req.params.type;
+    const query = 
+    `SELECT * 
+     FROM event
+     WHERE activitytype=$1
+        AND endtime>LOCALTIMESTAMP;`;
+    const values = [activityType];
     try {
         const { rows } = await db.query(query, values);
         res.json(rows);
