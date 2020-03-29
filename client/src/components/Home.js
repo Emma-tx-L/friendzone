@@ -30,11 +30,16 @@ class Home extends React.Component {
   render() {
     return (
       <Container>
-        <Container maxWidth="md" style={{position: 'relative', height: '25vh'}}>
-          <Typography variant="h3" style={{ position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '40%', left: '3vh', transform: 'translateY(-50%)'}}>
+        <Container maxWidth="md" style={{position: 'relative', height: '15vh'}}>
+          <Typography variant="h3" style={{ position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '65%', left: '3vh', transform: 'translateY(-50%)'}}>
             HOME
           </Typography>
         </Container>
+        <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
+            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+              Search By Category
+            </Typography>
+            </Container>
         <Container maxWidth="md">
           <GridList cellHeight="auto" className="category-card-list" cols={2} spacing={30}>
           {this.activityTypes.map(category => (
