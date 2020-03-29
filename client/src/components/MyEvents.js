@@ -5,7 +5,7 @@ import EventCard from '../components/EventCard';
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
 import EventGrid from '../components/EventGrid';
-  
+
 export default class MyEvents extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +26,7 @@ export default class MyEvents extends React.Component {
         const profile = localStorage.getItem('profileID');
         const res = await axios.get("http://localhost:5000/api/event/my-events?" + 'profile=' + profile);
         const fetchedEvents = [];
-        if (res.data.length > 0){
+        if (res.data.length > 0 && Array.isArray(res.data)){
             res.data.forEach((result) => {
                 const date = new Date(result.starttime);
                 const datestring = date.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute:'2-digit',});

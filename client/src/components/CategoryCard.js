@@ -1,20 +1,23 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
 import '../stylesheets/EventCard.css';
 
-export default class MediaCard extends React.Component{
+/**
+ * Props:
+*      { type }    activity type/category name
+*      { image }   category image 
+ */
+export default class CategoryCard extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             redirect: false,
-            id: props.id
+            type: props.type
         };
         this.events = []
         this.handleEventClick = this.handleEventClick.bind(this);
@@ -29,8 +32,8 @@ export default class MediaCard extends React.Component{
           return (
             <Redirect
               to={{
-                pathname: "/my-events/" + this.state.id,
-                state: { id: this.state.id }
+                pathname: "/categories/" + this.state.type,
+                state: { type: this.state.type }
               }}
             />
           );
@@ -43,30 +46,18 @@ export default class MediaCard extends React.Component{
             {this.handleRedirect()}
             <CardActionArea>
                 <CardMedia
-                className="eventcard-media"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="Contemplative Reptile"
-                />
+                className="category-media"
+                title={this.props.type}
+                style={{height: 10, paddingTop: '56.25%'}}
+                >
+                    <img src={this.props.img}/>
+                </CardMedia>
                 <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                    {this.props.event}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {this.props.time}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {this.props.place}
+                    {this.props.type}
                 </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                Share
-                </Button>
-                <Button size="small" color="primary">
-                Learn More
-                </Button>
-            </CardActions>
             </Card>
         );
     }
