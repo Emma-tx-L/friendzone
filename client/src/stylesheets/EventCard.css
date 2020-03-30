@@ -1,6 +1,4 @@
 @import url("index.css");
-@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600';
-
 
 .card {
   margin: var(--m-unrelatedElements);
@@ -8,10 +6,6 @@
   border: 1px rgb(211, 211, 211, 0.6) solid;
   border-radius: 5px;
   box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.2);
-}
-
-.card2 {
-  height: '45vw';
 }
 
 .card_header {
@@ -22,29 +16,5 @@
 }
 
 .card_action {
-	background-color:transparent;
-	display:inline-block;
-	cursor:pointer;
-	font-family:Verdana;
-	font-size:17px;
-	padding:7px 53px;
-	text-decoration:none;
 	text-shadow:0px 1px 12px darkblue
 }
-.apptext {
-  position:absolute;
-  bottom:30px;
-  padding:0px 30px;
-  text-align:left;
-  }
-
-  .card_title {
-    color: #242b40;
-    margin-bottom:5px;
-    font-family: 'Source Sans Pro', sans-serif;
-  }
-  .p {
-    font-weight:300;
-    font-family: 'Source Sans Pro', sans-serif;
-    color:#7b8194;
-  }

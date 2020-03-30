@@ -15,7 +15,6 @@ export default class MediaCard extends React.Component{
             redirect: false,
             id: props.id
         };
-        this.events = []
         this.handleEventClick = this.handleEventClick.bind(this);
         this.colours = [
             '#82a0ff',
