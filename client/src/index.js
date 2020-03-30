@@ -11,6 +11,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import MyEvents from './components/MyEvents';
 import EventPage from './components/EventPage';
+import EventCategories from './components/EventCategories';
 const App = (
     <Router>
         <Navbar/>
@@ -21,6 +22,7 @@ const App = (
           <Route path="/profile" component={Profile} />
           <Route exact path="/my-events" component={MyEvents} />
           <Route exact path="/my-events/:id" component={EventPage} />
+          <Route exact path="/categories/:type" component={EventCategories} />
         </div>
     </Router>
 );
