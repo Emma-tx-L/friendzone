@@ -7,6 +7,9 @@ import io from "socket.io-client";
 import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
 import moment from 'moment';
+import Paper from '@material-ui/core/Paper';
+import '../stylesheets/EventPage.css';
+import Typography from '@material-ui/core/Typography';
 
 class Event extends React.Component {
   constructor(props) {
@@ -77,12 +80,21 @@ class Event extends React.Component {
     this.setState({ message: e.target.value });
   }
 
+  handleEnterPressed = (event) => {
+    console.log('pressed enter');
+    event.preventDefault();
+    const code = event.keyCode || event.which;
+    if (code === 13) {
+      this.sendMessage();
+    }
+  };
+
   render() {
     //TODO: Use Moment for dates.
     //TODO: Style
     const name = this.state.event?.name;
-    const starttime = this.state.event?.starttime;
-    const endtime = this.state.event?.endtime;
+    const starttime = moment(this.state.event?.starttime).format('MMMM Do YYYY, h:mm:ss a');
+    const endtime = moment(this.state.event?.endtime).format('MMMM Do YYYY, h:mm:ss a');
     const description = this.state.event?.description;
     const activitytype = this.state.event?.activitytype;
     const activitylevel = this.state.event?.activitylevel;
@@ -92,15 +104,25 @@ class Event extends React.Component {
     const chatMessages = this.state.chat && this.state.chat;
     return (
         <Container>
-          <h1>{name}</h1>
-          <h3>{description}</h3>
-          <h3>Type: {activitytype} Level: {activitylevel}</h3>
-          <h3>Start: {starttime} End: {endtime}</h3>
-          <h3>Location: {streetnumber} {streetname} {postalcode}</h3>
+          <Container>
+          <Paper className="paper">
+            <Typography className="title" variant="h3">{name}</Typography>
+            <Typography className="nested" variant="body1">What is it? <span style={{marginLeft: "3px", color: 'black'}}>{description}</span></Typography>
+            <Typography className="nested"variant="body1">Type: <span style={{marginLeft: "3px", color: 'black'}}>{activitytype}</span></Typography>
+            <Typography className="nested"variant="body1">Level: <span style={{marginLeft: "3px", color: 'black'}}>{activitylevel}</span></Typography>
+            <Typography className="nested" variant="body1">Start:  <span style={{marginLeft: "3px", color: 'black', marginRight: "3px"}}>{starttime}</span></Typography>
+            <Typography className="nested"variant="body1">End: <span style={{marginLeft: "3px", color: 'black'}}>{endtime}</span></Typography>
+            <Typography className="nested" variant="body1">Location: <span style={{marginLeft: "3px", color: 'black'}}>{streetnumber} {streetname} {postalcode}</span></Typography>
+          </Paper>
+          </Container>
+
+          <Container>
+          <Paper style={{maxHeight: 200, overflow: 'auto'}}>
           <List >
             {chatMessages?.map((chatMessage) => <ChatMessage name={chatMessage.firstname} content={chatMessage.content} time={chatMessage.time}/>)}
           </List>
           <TextField
+            fullWidth
             variant="outlined"
             margin="normal"
             id="message"
@@ -109,9 +131,10 @@ class Event extends React.Component {
             autoComplete="message"
             autoFocus
             onChange={this.handleMessageChange}
+            onKeyUp={this.handleEnterPressed}
           />
-          <br></br>
-          <Button onClick={this.sendMessage}>Send Message</Button>
+          </Paper>
+          </Container>
         </Container>
     );
   }

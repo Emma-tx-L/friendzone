@@ -16,7 +16,6 @@ router.get('/:id', async (req, res) => {
     const values = [eventChatId];
     try {
         const { rows } = await db.query(query, values);
-        console.log('ROWS: ' + JSON.stringify(rows));
         res.json(rows);
     } catch(e){
         console.log('error: ' + e);
@@ -35,7 +34,6 @@ router.post('/', async (req, res) => {
     const values = [time, content, chatid, profileid];
     try {
         const { rows } = await db.query(query, values);
-        console.log('ROWS: ' + JSON.stringify(rows));
         res.json(rows);
     } catch(e){
         console.log('error: ' + e);
