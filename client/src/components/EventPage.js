@@ -4,12 +4,12 @@ import ChatMessage from './ChatMessage';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import io from "socket.io-client";
-import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
 import moment from 'moment';
 import Paper from '@material-ui/core/Paper';
 import '../stylesheets/EventPage.css';
 import Typography from '@material-ui/core/Typography';
+import ReviewList from './ReviewList';
 
 class Event extends React.Component {
   constructor(props) {
@@ -35,7 +35,6 @@ class Event extends React.Component {
     let chatId;
       try{
         const res = await axios.get("http://localhost:5000/api/event/my-events/" + id);
-        console.log('res: ' + JSON.stringify(res));
         if (res && res.status == 200){
           const event = res.data[0];
           chatId = event.chatid;
@@ -102,6 +101,7 @@ class Event extends React.Component {
     const streetnumber = this.state.event?.streetnumber;
     const postalcode = this.state.event?.postalcode;
     const chatMessages = this.state.chat && this.state.chat;
+    const eventid = this.state.event?.id;
     return (
         <Container>
           <Container>
@@ -135,6 +135,7 @@ class Event extends React.Component {
           />
           </Paper>
           </Container>
+          <ReviewList eventid={eventid}/>
         </Container>
     );
   }

@@ -20,6 +20,7 @@ app.use((req, res, next) => {
 app.use('/api/account', require('./api/account'));
 app.use('/api/event', require('./api/event'));
 app.use('/api/chatcomment', require('./api/chatcomment'));
+app.use('/api/review', require('./api/review'));
 
 
 var server = app.listen(PORT, () => {
