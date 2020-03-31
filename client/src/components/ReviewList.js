@@ -11,7 +11,8 @@ class ReviewList extends React.Component {
       super(props);
         this.state = {
             eventid: null,
-            reviews: null
+            reviews: null, 
+            average: null,
         };
     }
 
@@ -20,9 +21,14 @@ class ReviewList extends React.Component {
         const eventid = pathArr[2];
         try{
             const res = await axios.get("http://localhost:5000/api/review/" + eventid);
+            const resAvg = await axios.get("http://localhost:5000/api/review/average/" + eventid);
             if (res && res.status == 200){
               const reviews = res.data;
               this.setState({ reviews: reviews });
+            }
+            if (resAvg && resAvg.status == 200){
+                const average = resAvg.data[0].avg;
+                this.setState( { average: average });
             }
           } catch (err){
             console.log('err: ' + err);
@@ -32,9 +38,12 @@ class ReviewList extends React.Component {
   render() {
   const { classes } = this.props;
   const reviews = this.state.reviews;
+  const average = this.state.average;
+  const averageTruncated = Number(average).toFixed(2);
   return (
     <Container className={classes.container}>
-        <Typography variant="body1">Reviews</Typography> 
+        <Typography variant="h6">Reviews</Typography> 
+        <Typography variant="body1">Average Rating: {averageTruncated}</Typography> 
         <div className={classes.root}>
         <GridList className={classes.gridList} cols={2.5}>
             {reviews?.map(review => 

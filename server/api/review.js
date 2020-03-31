@@ -7,9 +7,26 @@ router.get('/:id', async (req, res) => {
     let eventId = req.params.id;
     console.log('eventId: ' + eventId);
     const query = 
-    `SELECT * 
+    `SELECT *
     FROM review
-    WHERE eventid=$1;`
+    WHERE eventid=$1`
+    const values = [eventId];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+router.get('/average/:id', async (req, res) => {
+    let eventId = req.params.id;
+    console.log('eventId: ' + eventId);
+    const query = 
+    `SELECT AVG(rating)
+    FROM review
+    WHERE eventid=$1`
     const values = [eventId];
     try {
         const { rows } = await db.query(query, values);
