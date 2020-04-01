@@ -1,14 +1,33 @@
-var express = require('express');
-var Account = require('../models/account');
+const db = require('../database');
+const Router = require('express-promise-router');
 
-var router = express.Router();
-router.get('/', (req, res) => {
-    Account.retrieveAll(function(err,accounts){
-        if(err){
-            return res.json(err);
-        }
-        return res.json(accounts)
-    })
+var router = new Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const { rows } = await db.query('SELECT email from account');
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(error);
+    }
+});
+
+router.get('/login', async (req, res) => {
+    let email = req.query.email;
+    console.log('email: ' + email);
+    let password = req.query.password;
+
+    const text = 'SELECT a.email, p.ID, p.firstname FROM account a LEFT JOIN profile p ON a.email=p.email WHERE a.email=$1 AND a.password=$2';
+    const values = [email, password];
+    try {
+        const { rows } = await db.query(text, values);
+        console.log('rows: ' + rows);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
 });
 
 router.post('/', (req, res)=>{

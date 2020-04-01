@@ -1,0 +1,37 @@
+@import url("index.css");
+
+.icons {
+  color: var(--teal);
+  margin: -7px 1rem;
+  }
+
+.user {
+  display: inline-flex;
+  margin: var(--m-unrelatedElements);
+}
+
+.user-icon {
+  color: var(--teal);
+  margin: 25%;
+}
+
+.circle-icon {
+  text-align: center;
+  margin: 0;
+  background: var(--fadedblue);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.name {
+  margin: 0.75rem var(--m-unrelatedElements);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.nav-btn {
+  text-decoration: none;
+  padding: var(--p-relatedElements);
+  color: black;
+}
