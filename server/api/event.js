@@ -104,8 +104,7 @@ router.post('/register/', async (req, res) => {
 /**
  * Deregisters event from profile
  */
-router.delete('/register/', async (req, res) => {
-    console.log("in delete");
+router.post('/unregister/', async (req, res) => {
     let eventID = req.body.eventID;
     let profileID = req.body.profileID;
     const query = 
