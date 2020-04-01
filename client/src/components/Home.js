@@ -28,23 +28,24 @@ class Home extends React.Component {
       {type: 'Arts', img: artsURL},
       {type: 'Food & Drink', img: foodndrinkURL}
     ]
-
-    this.getEvent("highest-rated", this.state.highestRatedEvents);
-    this.getEvent("popular", this.state.mostPopularEvents);
-    this.getEvent("all-registered", this.state.allRegisteredEvents);
   }
 
-  getEvent = async (url, stateArray) => {
-    const res = await axios.get(`http://localhost:5000/api/event/${url}`);
-    console.log(res);
+  componentDidMount() {
+    this.getEvent("highest-rated", "highestRatedEvents");
+    this.getEvent("popular", "mostPopularEvents");
+    this.getEvent("all-registered", "allRegisteredEvents");
+  }
+
+  getEvent = async (url, stateName) => {
+    const res = await axios.get("http://localhost:5000/api/special/" + url);
     const events = [];
     if (res.data.length > 0 && Array.isArray(res.data)){
       res.data.forEach((result) => {
           const date = new Date(result.starttime);
           const datestring = date.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute:'2-digit',});
           const event = {
-              key: `${result.eventid} ${datestring}`,
-              id: result.eventid,
+              key: `${result.id} ${datestring}`,
+              id: result.id,
               name: result.name,
               starttime: datestring,
               date: date,
@@ -53,7 +54,9 @@ class Home extends React.Component {
           }
           events.push(event);
         })
-      this.setState(stateArray, events);
+      this.setState({
+        [stateName]: events
+      })
     }
   }
 
@@ -81,7 +84,7 @@ class Home extends React.Component {
         </Container>
         <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
             <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
-              Most Popular Upcoming Events
+              Hot n Upcoming Events
             </Typography>
         </Container>
         <EventGrid 
@@ -98,7 +101,7 @@ class Home extends React.Component {
         />
         <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
             <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
-              Everyone Was Here!
+              Everyone Is Here!
             </Typography>
         </Container>
         <EventGrid 
