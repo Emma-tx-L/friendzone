@@ -1,0 +1,19 @@
+@import url("index.css");
+
+.title {
+    color: var(--coralpink);
+}
+
+.paper {
+    padding: 15px;
+    margin-bottom: 7.5px;
+    margin-top: 7.5px;
+}
+
+.nested {
+    display: flex;
+    color: var(--coralpink);
+    font-weight: bold;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+}
