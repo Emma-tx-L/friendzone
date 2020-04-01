@@ -22,7 +22,13 @@ export default class MyEvents extends React.Component {
                 <GridList cellHeight="auto" className="event-card-list" cols={4} spacing={10}>
                 {this.props.events.map(event => (
                     <GridListTile cols={1} style={{ height: '30vw' }} key={event.key}>
-                        <EventCard key={event.key} id={event.id} event={event.name} time={event.starttime} place={event.place}></EventCard>
+                        <EventCard 
+                            key={event.key} 
+                            id={event.id} 
+                            event={event.name} 
+                            time={event.starttime} 
+                            place={event.place}
+                            action={this.props.action}/>
                     </GridListTile>
                 ))}
                 </GridList>

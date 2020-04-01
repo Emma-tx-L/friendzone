@@ -3,10 +3,10 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
 import '../stylesheets/EventCard.css';
+import CardAction from './CardAction';
 
 /**
  * props
@@ -63,9 +63,9 @@ export default class MediaCard extends React.Component{
     render() {
         const color = this.getRandomColour();
         return (
-            <Card onClick={() => this.handleEventClick()} style={{height: '23vw', position:'relative'}}>
+            <Card style={{height: '23vw', position:'relative'}}>
             {this.handleRedirect()}
-            <CardActionArea>
+            <CardActionArea onClick={() => this.handleEventClick()} >
                 <div className="card_header" style={{background: color}}></div>
                 <CardContent>
                     <Typography gutterBottom variant="body1" style={{fontWeight:'bold'}}>
@@ -80,10 +80,10 @@ export default class MediaCard extends React.Component{
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" className="card_action" 
-                style={{position:'absolute', bottom: '1vw', right: '1vw', }}>
-                    EDIT
-                </Button>
+                <CardAction
+                    action={this.props.action}
+                    eventID={this.props.id}
+                />
             </CardActions>
             </Card>
         );

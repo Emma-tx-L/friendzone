@@ -30,8 +30,8 @@ export default class EventCategories extends React.Component {
                 const date = new Date(result.starttime);
                 const datestring = date.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute:'2-digit',});
                 const event = {
-                    key: `${result.eventid} ${result.name}`,
-                    id: result.eventid,
+                    key: `${result.id} ${result.name}`,
+                    id: result.id,
                     name: result.name,
                     starttime: datestring,
                     date: date,
@@ -60,6 +60,7 @@ export default class EventCategories extends React.Component {
             </Container>
             <EventGrid 
                 events = {this.state.events}
+                action = "register"
             />
         </Container>
         );

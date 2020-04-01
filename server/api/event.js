@@ -84,9 +84,9 @@ router.get('/upcoming/:type', async (req, res) => {
 /**
  * Registers profile in event as non-admin
  */
-router.put('/register/:eventID/:profileID', async (req, res) => {
-    let eventID = req.params.eventID;
-    let profileID = req.params.profileID;
+router.post('/register/', async (req, res) => {
+    let eventID = req.body.eventID;
+    let profileID = req.body.profileID;
     const query = 
     `INSERT INTO Registered
         VALUES 
@@ -104,9 +104,10 @@ router.put('/register/:eventID/:profileID', async (req, res) => {
 /**
  * Deregisters event from profile
  */
-router.delete('/register/:eventID/:profileID', async (req, res) => {
-    let eventID = req.params.eventID;
-    let profileID = req.params.profileID;
+router.delete('/register/', async (req, res) => {
+    console.log("in delete");
+    let eventID = req.body.eventID;
+    let profileID = req.body.profileID;
     const query = 
     `DELETE FROM Registered
         WHERE 
