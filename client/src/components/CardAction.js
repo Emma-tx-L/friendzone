@@ -46,35 +46,11 @@ export default class CardAction extends React.Component{
             alert("There was an error, please try again later.")
         } else if (res.data && res.data.detail && res.data.detail.includes("already exists")) {
             alert("You're already registered for this event!")
+        } else if (res.data === []) {
+            alert("You're now registered!")
         }
         return;
     }
-
-    // handleAction = () => {
-    //     if (this.state.redirect) {
-    //         const profileID = localStorage.getItem('profileID');
-    //         let redirectPath = window.location.pathname; // redirect to same page by default
-    
-    //         if (this.props.action === "edit") {
-    //             // TODO: redirectPath = edit-page-path
-    //             return (
-    //                 <Redirect
-    //                 to={{
-    //                     pathname: redirectPath
-    //                 }}
-    //                 />
-    //             );
-    //         } else if (this.props.action === "unregister") {
-    //             this.unregisterEvent(profileID);
-    //             return;
-    //         } else if (this.props.action === "register") {
-    //             this.registerEvent(profileID);
-    //             return;
-    //         } else {
-    //             return;
-    //         }
-    //     }
-    // }
 
     handleAction = () => {
             const profileID = localStorage.getItem('profileID');
