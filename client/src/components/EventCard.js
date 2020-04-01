@@ -8,6 +8,13 @@ import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
 import '../stylesheets/EventCard.css';
 
+/**
+ * props
+ *      action      {string} one of: 'unregister', 'edit', 'register'
+ *      event       
+ *      time
+ *      place
+ */
 export default class MediaCard extends React.Component{
     constructor(props) {
         super(props);

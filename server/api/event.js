@@ -84,13 +84,33 @@ router.get('/upcoming/:type', async (req, res) => {
 /**
  * Registers profile in event as non-admin
  */
-router.get('/register/:eventID:profileID', async (req, res) => {
+router.put('/register/:eventID/:profileID', async (req, res) => {
     let eventID = req.params.eventID;
     let profileID = req.params.profileID;
     const query = 
     `INSERT INTO Registered
         VALUES 
         ($1, $2, false)`
+    const values = [profileID, eventID];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ * Deregisters event from profile
+ */
+router.delete('/register/:eventID/:profileID', async (req, res) => {
+    let eventID = req.params.eventID;
+    let profileID = req.params.profileID;
+    const query = 
+    `DELETE FROM Registered
+        WHERE 
+        ProfileID=$1 AND EventID=$2`
     const values = [profileID, eventID];
     try {
         const { rows } = await db.query(query, values);
