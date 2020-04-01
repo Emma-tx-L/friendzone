@@ -123,12 +123,20 @@ CREATE TABLE Activity(
 INSERT INTO Activity
 VALUES
     ('Fitness', 'Beginner'),
-	('Fitness', 'Advanced'),
+	('Fitness', 'Intermediate'),
+    ('Fitness', 'Advanced'),
     ('Technology', 'Beginner'),
+    ('Technology', 'Intermediate'),
+    ('Technology', 'Advanced'),
     ('Music', 'Beginner'),
+    ('Music', 'Intermediate'),
+    ('Music', 'Advanced'),
+    ('Arts', 'Beginner'),
     ('Arts', 'Intermediate'),
-    ('Food & Drink', 'Intermediate');
-
+    ('Arts', 'Advanced'),
+    ('Food & Drink', 'Beginner'),
+    ('Food & Drink', 'Intermediate'),
+    ('Food & Drink', 'Advanced');
 
 CREATE TABLE Event(
 	ID uuid DEFAULT uuid_generate_v4 (),

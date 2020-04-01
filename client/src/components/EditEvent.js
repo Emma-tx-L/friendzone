@@ -178,7 +178,6 @@ class EditEvent extends React.Component {
                 name="activityType"
                 value={this.state.newEvent.activityType}
                 onChange={this.handleChange}
-                // className={classes.selectEmpty}
               >
                 <MenuItem value={'Arts'}>Arts</MenuItem>
                 <MenuItem value={'Fitness'}>Fitness</MenuItem>
@@ -198,7 +197,6 @@ class EditEvent extends React.Component {
                 name="activityLevel"
                 value={this.state.newEvent.activityLevel}
                 onChange={this.handleChange}
-                // className={classes.selectEmpty}
               >
                 <MenuItem value={'Beginner'}>Beginner</MenuItem>
                 <MenuItem value={'Intermediate'}>Intermediate</MenuItem>
