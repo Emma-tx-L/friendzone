@@ -37,22 +37,23 @@ router.get('/average/:id', async (req, res) => {
     }
 })
 
-// router.post('/', async (req, res) => {
-//     let time = req.body.time;
-//     let content = req.body.content;
-//     let chatid = req.body.chatid;
-//     let profileid = req.body.profileid;
-//     const query = 
-//     `INSERT INTO chatcomment (time, content, chatid, profileid)
-//     VALUES ($1, $2, $3, $4)`
-//     const values = [time, content, chatid, profileid];
-//     try {
-//         const { rows } = await db.query(query, values);
-//         res.json(rows);
-//     } catch(e){
-//         console.log('error: ' + e);
-//         return res.json(e);
-//     }
-// })
+router.post('/', async (req, res) => {
+    let id = req.body.id;
+    let comment = req.body.comment;
+    let rating = req.body.rating;
+    let dateposted = req.body.dateposted;
+    let eventid = req.body.eventid;
+    const query = 
+    `INSERT INTO review (id, comment, rating, dateposted, eventid)
+    VALUES ($1, $2, $3, $4, $5)`
+    const values = [id, comment, rating, dateposted, eventid];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
 
 module.exports = router;

@@ -5,6 +5,16 @@ import Review from './Review';
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import Rating from '@material-ui/lab/Rating';
+import { uuid } from 'uuidv4';
+import moment from 'moment';
 
 class ReviewList extends React.Component {
    constructor(props) {
@@ -13,12 +23,48 @@ class ReviewList extends React.Component {
             eventid: null,
             reviews: null, 
             average: null,
+            addReviewDialog: false,
+            rating: null,
+            review: '',
         };
+        this.handleAddReview = this.handleAddReview.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleReviewChange = this.handleReviewChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleReviewChange(e) {
+        this.setState({ review: e.target.value });
+    }
+
+    handleAddReview() {
+        this.setState({ addReviewDialog : true });
+    }
+
+    handleClose() {
+        this.setState({ addReviewDialog: false, rating: null });
+    }
+
+    async handleSubmit() {
+        let id = uuid();
+        let comment = this.state.review;
+        let rating = this.state.rating;
+        let dateposted = moment();
+        let eventid = this.state.eventid;
+        let reviewToPost = { id, comment, rating, dateposted, eventid };
+        const res = await axios.post("http://localhost:5000/api/review/", reviewToPost);
+        console.log('res: ' + JSON.stringify(res));
+        // let previousReviews = this.state.reviews;
+        // let newReviews = previousReviews.push(reviewToPost);
+        // this.setState({ reviews: newReviews, addReviewDialog: false });
+        //Janky reload because optimistic update isnt working for some reason
+        window.location.reload(false);
     }
 
     async componentDidMount() {
         let pathArr = window.location.pathname.split('/');
         const eventid = pathArr[2];
+        this.setState({ eventid: eventid });
         try{
             const res = await axios.get("http://localhost:5000/api/review/" + eventid);
             const resAvg = await axios.get("http://localhost:5000/api/review/average/" + eventid);
@@ -51,6 +97,36 @@ class ReviewList extends React.Component {
             )}
         </GridList>
         </div>
+        <Button onClick={this.handleAddReview}variant="contained" color="primary">Add Review</Button>
+
+        <Dialog open={this.state.addReviewDialog} onClose={console.log()} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Review</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Review"
+            fullWidth
+            onChange={this.handleReviewChange}
+          />
+        <Rating
+          name="simple-controlled"
+          value={this.state.rating}
+          onChange={(event, newValue) => {
+            this.setState({ rating: newValue })
+          }}
+        />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={this.handleSubmit} color="primary">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
