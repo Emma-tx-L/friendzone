@@ -14,10 +14,13 @@ export default class MediaCard extends React.Component{
         super(props);
         this.state = {
             redirect: false,
+            editEventRedirect: false,
             id: props.id
         };
         this.events = []
         this.handleEventClick = this.handleEventClick.bind(this);
+        this.handleEditEventClick = this.handleEditEventClick.bind(this);
+    
     }
 
     async handleEventClick() {
@@ -37,8 +40,33 @@ export default class MediaCard extends React.Component{
         }
       }
 
+    async handleEditEventClick() {
+        this.setState({editEventRedirect: true});
+    }
+
+    handleEditEventRedirect() {
+        if (this.state.editEventRedirect) {
+          return (
+            <Redirect
+              to={{
+                pathname: "/edit-event",
+                state: { id: this.state.id }
+              }}
+            />
+          );
+        }
+      }
+
+
     render() {
         const { id } = this.props;
+        const renderEdit = () => {
+            if (this.props.isAdmin){
+                return <Button onClick={() => this.handleEditEventClick() } size="small" color="primary">
+                    {this.handleEditEventRedirect()}
+                    Edit</Button>
+            }
+        }
         return (
             <Card onClick={() => this.handleEventClick()} className={`eventcard-${this.props.id}`}>
             {this.handleRedirect()}
@@ -61,9 +89,7 @@ export default class MediaCard extends React.Component{
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                Share
-                </Button>
+                { renderEdit() }
                 <Button size="small" color="primary">
                 Learn More
                 </Button>

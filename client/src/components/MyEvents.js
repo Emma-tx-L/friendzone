@@ -5,7 +5,8 @@ import EventCard from '../components/EventCard';
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
 import EventGrid from '../components/EventGrid';
-  
+import { Redirect } from "react-router-dom";
+
 export default class MyEvents extends React.Component {
     constructor(props) {
         super(props);
@@ -13,13 +14,32 @@ export default class MyEvents extends React.Component {
             events: [],
             upcomingEvents: [],
             adminEvents: [],
-            pastEvents: []
+            pastEvents: [],
+            redirect: false
         };
         this.colour = '#ffffff';
+        this.handleCreateEvent = this.handleCreateEvent.bind(this);
     }
-    
+
     componentDidMount() {
         this.getMyEvents();
+    }
+
+    async handleCreateEvent(){
+        this.setState({redirect: true});
+    }
+
+    handleRedirect(){
+        if (this.state.redirect){
+            return ( 
+            <Redirect
+            to={{
+              pathname: "/edit-event",
+              state: { id: false }
+
+            }}
+          />
+        )};
     }
 
     getMyEvents = async () => {
@@ -80,11 +100,13 @@ export default class MyEvents extends React.Component {
             </Container>
             <Container maxWidth="md" style={{backgroundColor: this.colour, position: 'relative', height: '8vh'}}>
                 <Button
+                    onClick={() => this.handleCreateEvent()}
                     variant="contained"
                     style={{ borderRadius: 25, position:'absolute', right:'50px', backgroundColor:'#5da4a9', color:'white'}}
-                >
+                > 
                     Create Event
                 </Button>
+                {this.handleRedirect()}
             </Container>
             <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
             <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
