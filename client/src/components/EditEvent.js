@@ -289,7 +289,6 @@ class EditEvent extends React.Component {
   
       <Button 
         type="submit"
-        // value="Submit"
         variant="contained"
         style={{ borderRadius: 25, position:'absolute', right:'175px', marginTop:'50px', backgroundColor:'#5da4a9', color:'white'}}> 
         Create
