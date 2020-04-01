@@ -4,6 +4,9 @@ const { v4: uuidv4 } = require('uuid');
 
 var router = new Router();
 
+/**
+ * Helper to set chat associated with event
+ */
 async function setChat(id, eventName) {
     const query = `INSERT INTO chat VALUES('${id}', '${eventName}')`;
     try {
@@ -13,6 +16,9 @@ async function setChat(id, eventName) {
     }
 }
 
+/**
+ * Helper to set region associated with event
+ */
 async function setRegion(postalCode, province, city) {
     const checkExists = `SELECT * FROM region WHERE postalcode = '${postalCode}'`;
     const { rows } = await db.query(checkExists);
@@ -26,6 +32,9 @@ async function setRegion(postalCode, province, city) {
     }
 }
 
+/**
+ * Helper to set address associated with event
+ */
 async function setAddress(streetNumber, streetName, postalCode) {
     const checkExists = `SELECT * FROM address WHERE streetnumber =${streetNumber} AND streetname = '${streetName}' AND postalcode = '${postalCode}'`;
     const { rows } = await db.query(checkExists);
@@ -39,6 +48,9 @@ async function setAddress(streetNumber, streetName, postalCode) {
     }
 }
 
+/**
+ * Helper to update chat associated with event
+ */
 async function updateChat(id, eventName) {
     const query = `UPDATE chat SET name='${eventName}' WHERE id='${id}'`
     try {
@@ -48,6 +60,9 @@ async function updateChat(id, eventName) {
     }
 }
 
+/**
+ * Helper to register event
+ */
 async function registerEvent(profileID, eventID) {
     const query = `INSERT INTO registered VALUES('${profileID}', '${eventID}', true)`;
     try {
@@ -57,7 +72,9 @@ async function registerEvent(profileID, eventID) {
     }
 }
 
-
+/**
+ *  Creates event
+ */
 router.post('/create-event', async (req, res)=>{
     const chatID = uuidv4();
     const eventID = uuidv4();
@@ -77,6 +94,9 @@ router.post('/create-event', async (req, res)=>{
     } 
 });
 
+/**
+ * Updates event
+ */
 router.post('/update-event', async (req, res)=>{
     const eventID = req.body.data.eventID;
     let event = req.body.data.event;
@@ -97,6 +117,9 @@ router.post('/update-event', async (req, res)=>{
     } 
 });
 
+/**
+ * Gets all events
+ */
 router.get('/my-events', async (req, res) => {
     let profile = req.query.profile;
     const query = 
@@ -120,6 +143,9 @@ router.get('/my-events', async (req, res) => {
     }
 })
 
+/**
+ *  Gets specific event 
+ */
 router.get('/my-events/:id', async (req, res) => {
     let eventId = req.params.id;
     const query = 
@@ -140,6 +166,9 @@ router.get('/my-events/:id', async (req, res) => {
     }
 })
 
+/**
+ *  Gets region associated with event
+ */
 async function getRegion(postalCode) {
     const query = `SELECT * FROM region WHERE postalcode = '${postalCode}'`;
     try {
@@ -149,5 +178,64 @@ async function getRegion(postalCode) {
         console.log('error with get regions' + e);
     }
 }
+
+/**
+ * Returns all events of category, regardless of start or end time
+ */
+router.get('/:type', async (req, res) => {
+    let activityType = req.params.type;
+    const query = 
+    `SELECT * 
+     FROM event
+     WHERE activitytype=$1;`;
+    const values = [activityType];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ * Returns all events of category that have not ended yet, based on current local time
+ */
+router.get('/upcoming/:type', async (req, res) => {
+    let activityType = req.params.type;
+    const query = 
+    `SELECT * 
+     FROM event
+     WHERE activitytype=$1
+        AND endtime>LOCALTIMESTAMP;`;
+    const values = [activityType];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ * Registers profile in event as non-admin
+ */
+router.get('/register/:eventID:profileID', async (req, res) => {
+    let eventID = req.params.eventID;
+    let profileID = req.params.profileID;
+    const query = 
+    `INSERT INTO Registered
+        VALUES 
+        ($1, $2, false)`
+    const values = [profileID, eventID];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
 
 module.exports = router;

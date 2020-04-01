@@ -46,11 +46,12 @@ export default class MyEvents extends React.Component {
         const profile = localStorage.getItem('profileID');
         const res = await axios.get("http://localhost:5000/api/event/my-events?" + 'profile=' + profile);
         const fetchedEvents = [];
-        if (res.data.length > 0){
+        if (res.data.length > 0 && Array.isArray(res.data)){
             res.data.forEach((result) => {
                 const date = new Date(result.starttime);
                 const datestring = date.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute:'2-digit',});
                 const event = {
+                    key: `${result.eventid} ${datestring}`,
                     id: result.eventid,
                     name: result.name,
                     starttime: datestring,
@@ -75,13 +76,13 @@ export default class MyEvents extends React.Component {
         const adminEvents = [];
         const pastEvents = [];
         this.state.events.forEach(event => {
-            if (event.date > Date.now()) {
+            if(event.isAdmin) {
+                adminEvents.push(event)
+            }
+            if (event.date < Date.now()) {
                 pastEvents.push(event);
             } else {
                 upcomingEvents.push(event);
-                if(event.isAdmin) {
-                    adminEvents.push(event)
-                }
             }
         })
 
@@ -93,12 +94,12 @@ export default class MyEvents extends React.Component {
     render() {
         return (
         <Container component="main">
-            <Container maxWidth="md" style={{position: 'relative', backgroundColor: this.colour, height: '15vh'}}>
+            <Container maxWidth="md" style={{position: 'relative', height: '15vh'}}>
                 <Typography variant="h3" style={{ position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '65%', left: '3vh', transform: 'translateY(-50%)'}}>
                     YOUR EVENTS
                 </Typography>
             </Container>
-            <Container maxWidth="md" style={{backgroundColor: this.colour, position: 'relative', height: '8vh'}}>
+            <Container maxWidth="md" style={{position: 'relative', height: '8vh'}}>
                 <Button
                     onClick={() => this.handleCreateEvent()}
                     variant="contained"
@@ -108,31 +109,28 @@ export default class MyEvents extends React.Component {
                 </Button>
                 {this.handleRedirect()}
             </Container>
-            <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
+            <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
             <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Upcoming Events
                 </Typography>
             </Container>
             <EventGrid 
-                colour = {this.colour}
                 events = {this.state.upcomingEvents}
             />
-            <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
+            <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Created By You
                 </Typography>
             </Container>
             <EventGrid 
-                colour = {this.colour}
                 events = {this.state.adminEvents}
             />
-            <Container maxWidth="md" style={{backgroundColor: this.colour, position:'relative', height: '10vh'}}>
+            <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
                     Past Events
                 </Typography>
             </Container>
             <EventGrid 
-                colour = {this.colour}
                 events = {this.state.pastEvents}
             />
         </Container>

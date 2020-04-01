@@ -3,7 +3,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from "react-router-dom";
@@ -17,10 +16,23 @@ export default class MediaCard extends React.Component{
             editEventRedirect: false,
             id: props.id
         };
-        this.events = []
         this.handleEventClick = this.handleEventClick.bind(this);
         this.handleEditEventClick = this.handleEditEventClick.bind(this);
     
+        this.colours = [
+            '#82a0ff',
+            '#ff94f4',
+            '#beffb0',
+            '#78ffe4',
+            '#fffb78',
+            '#ff9a3b',
+            '#ff4a5f',
+            '#795dd4',
+            '#c2ff78',
+            '#eb78c4',
+            '#ffe985',
+            '#7affcc'
+        ]
     }
 
     async handleEventClick() {
@@ -57,9 +69,12 @@ export default class MediaCard extends React.Component{
         }
       }
 
+    getRandomColour = () => {
+        return this.colours[Math.floor(Math.random() * this.colours.length)];
+    }
 
     render() {
-        const { id } = this.props;
+        const color = this.getRandomColour();
         const renderEdit = () => {
             if (this.props.isAdmin){
                 return <Button onClick={() => this.handleEditEventClick() } size="small" color="primary">
@@ -68,30 +83,27 @@ export default class MediaCard extends React.Component{
             }
         }
         return (
-            <Card onClick={() => this.handleEventClick()} className={`eventcard-${this.props.id}`}>
+            <Card onClick={() => this.handleEventClick()} style={{height: '23vw', position:'relative'}}>
             {this.handleRedirect()}
             <CardActionArea>
-                <CardMedia
-                className="eventcard-media"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="Contemplative Reptile"
-                />
+                <div className="card_header" style={{background: color}}></div>
                 <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {this.props.event}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {this.props.time}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {this.props.place}
-                </Typography>
+                    <Typography gutterBottom variant="body1" style={{fontWeight:'bold'}}>
+                        {this.props.event}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p" style={{height: '2vw'}}>
+                        {this.props.time}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {this.props.place}
+                    </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                { renderEdit() }
-                <Button size="small" color="primary">
-                Learn More
+                 { renderEdit() }
+                <Button size="small" color="primary" className="card_action" 
+                style={{position:'absolute', bottom: '1vw', right: '1vw', }}>
+                    EDIT
                 </Button>
             </CardActions>
             </Card>

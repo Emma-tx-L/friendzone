@@ -35,6 +35,7 @@ class Login extends React.Component {
     if (res.data.length > 0){
       console.log(res.data);
       localStorage.setItem('profileID', res.data[0].id);
+      localStorage.setItem('firstname', res.data[0].firstname);
       localStorage.setItem('email', res.data[0].email);
       this.setState({redirect: true});
     }

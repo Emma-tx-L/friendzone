@@ -19,10 +19,26 @@ app.use((req, res, next) => {
 
 app.use('/api/account', require('./api/account'));
 app.use('/api/event', require('./api/event'));
-app.use('/api/chat', require('./api/chat'));
+app.use('/api/chatcomment', require('./api/chatcomment'));
+app.use('/api/review', require('./api/review'));
 
-app.listen(PORT, () => {
+
+var server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+});
+
+var io = require('socket.io')(server);
+
+io.on('connection', (socket)=>{
+    console.log('A user has connected');
+    socket.on('JOIN_CHAT', chatid => {
+        socket.join(chatid, () => {
+            socket.on('CHAT_MESSAGE', (message) => {
+                console.log('CHAT_MESSAGE received ' + JSON.stringify(message));
+                io.in(message.chatid).emit("CHAT_MESSAGE", message);
+            })
+        })
+    })
 });
 
 async function testDb() {
