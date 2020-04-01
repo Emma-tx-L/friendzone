@@ -21,6 +21,7 @@ app.use('/api/account', require('./api/account'));
 app.use('/api/event', require('./api/event'));
 app.use('/api/chatcomment', require('./api/chatcomment'));
 app.use('/api/review', require('./api/review'));
+app.use('/api/special', require('./api/special'));
 
 
 var server = app.listen(PORT, () => {
