@@ -24,7 +24,11 @@ export default class MediaCard extends React.Component{
             '#fffb78',
             '#ff9a3b',
             '#ff4a5f',
-            '#795dd4'
+            '#795dd4',
+            '#c2ff78',
+            '#eb78c4',
+            '#ffe985',
+            '#7affcc'
         ]
     }
 
