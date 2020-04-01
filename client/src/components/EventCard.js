@@ -13,9 +13,12 @@ export default class MediaCard extends React.Component{
         super(props);
         this.state = {
             redirect: false,
+            editEventRedirect: false,
             id: props.id
         };
         this.handleEventClick = this.handleEventClick.bind(this);
+        this.handleEditEventClick = this.handleEditEventClick.bind(this);
+    
         this.colours = [
             '#82a0ff',
             '#ff94f4',
@@ -49,12 +52,36 @@ export default class MediaCard extends React.Component{
         }
       }
 
+    async handleEditEventClick() {
+        this.setState({editEventRedirect: true});
+    }
+
+    handleEditEventRedirect() {
+        if (this.state.editEventRedirect) {
+          return (
+            <Redirect
+              to={{
+                pathname: "/edit-event",
+                state: { id: this.state.id }
+              }}
+            />
+          );
+        }
+      }
+
     getRandomColour = () => {
         return this.colours[Math.floor(Math.random() * this.colours.length)];
     }
 
     render() {
         const color = this.getRandomColour();
+        const renderEdit = () => {
+            if (this.props.isAdmin){
+                return <Button onClick={() => this.handleEditEventClick() } size="small" color="primary">
+                    {this.handleEditEventRedirect()}
+                    Edit</Button>
+            }
+        }
         return (
             <Card onClick={() => this.handleEventClick()} style={{height: '23vw', position:'relative'}}>
             {this.handleRedirect()}
@@ -73,6 +100,7 @@ export default class MediaCard extends React.Component{
                 </CardContent>
             </CardActionArea>
             <CardActions>
+                 { renderEdit() }
                 <Button size="small" color="primary" className="card_action" 
                 style={{position:'absolute', bottom: '1vw', right: '1vw', }}>
                     EDIT
