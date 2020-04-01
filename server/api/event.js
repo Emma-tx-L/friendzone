@@ -81,4 +81,24 @@ router.get('/upcoming/:type', async (req, res) => {
     }
 })
 
+/**
+ * Registers profile in event as non-admin
+ */
+router.get('/register/:eventID:profileID', async (req, res) => {
+    let eventID = req.params.eventID;
+    let profileID = req.params.profileID;
+    const query = 
+    `INSERT INTO Registered
+        VALUES 
+        ($1, $2, false)`
+    const values = [profileID, eventID];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
 module.exports = router;
