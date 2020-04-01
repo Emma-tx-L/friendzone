@@ -305,9 +305,8 @@ router.get('/popular', async (req, res) => {
         FROM c
         WHERE c.count=
         (SELECT MAX(count) FROM c)) AND endtime>LOCALTIMESTAMP`
-    const values = [];
     try {
-        const { rows } = await db.query(query, values);
+        const { rows } = await db.query(query);
         res.json(rows);
     } catch(e){
         console.log('error: ' + e);
@@ -334,9 +333,8 @@ router.get('/all-registered', async (req, res) => {
             (SELECT a2.profileid FROM a as a2
             WHERE a2.id=a.id))) b
     ON event.id=b.id`
-    const values = [];
     try {
-        const { rows } = await db.query(query, values);
+        const { rows } = await db.query(query);
         res.json(rows);
     } catch(e){
         console.log('error: ' + e);
