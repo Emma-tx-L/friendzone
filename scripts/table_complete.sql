@@ -62,7 +62,9 @@ VALUES
     ('V3W 3G5', 'Toronto', 'ON'),
     ('V3S 4P5', 'Surrey', 'BC'),
     ('V5K 6D3', 'Richmond', 'BC'),
-    ('V7V 8KD', 'Vancouver', 'BC');
+    ('V7V 8KD', 'Vancouver', 'BC'),
+    ('V6K 1J8', 'Narnia', 'BC');
+
 
 CREATE TABLE Address(
 	StreetNumber INTEGER,
@@ -77,7 +79,8 @@ VALUES
     (18702, 'Yonge Street', 'V3W 3G5'),
     (3425, '148 Street', 'V3S 4P5'),
     (10724, 'Bird Road', 'V5K 6D3'),
-    (3194, 'Main Street', 'V7V 8KD');
+    (3194, 'Main Street', 'V7V 8KD'),
+    (9999, 'Rainbow Road', 'V6K 1J8');
 
 CREATE TABLE Chat(
 	ID uuid DEFAULT uuid_generate_v4 (),
@@ -90,7 +93,10 @@ VALUES
     ('31bc50df-d15b-444d-b360-c1c313b43103', 'Painting Pals'),
     ('90cb8ff1-b30a-495a-afde-f1e2baf08e1a', 'The Grind'),
     ('fa5d90dc-bed3-47f3-8ce8-430100d39908', 'Pie Crawl'),
-    ('aa3432af-1257-46f7-aa0a-89ebb42b17db', 'Machine Learning and JS Event');
+    ('aa3432af-1257-46f7-aa0a-89ebb42b17db', 'Machine Learning and JS Event'),
+    ('04e20861-1e48-41c2-b328-d4ff9975e94d', 'Bubble Tea Sampling'),
+    ('58b6408c-8831-4605-8ecf-b3ef65ecef22', 'Migoreng Eating Contest'),
+    ('ec2e8923-84de-4dc0-ad7f-c5162aa3231b', 'Sushi Lessons');
 
 CREATE TABLE ChatComment(
 	Time timestamp without time zone, 
@@ -147,7 +153,10 @@ VALUES
     ('461bc700-23be-463c-a07c-3d52db261e26', 'Paint Nite', '2020-03-20 05:00:00 PM', '2020-03-20 07:00:00 PM', 'Get together with a group of pals to paint some mountains!', 18702, 'Yonge Street', 'V3W 3G5', '31bc50df-d15b-444d-b360-c1c313b43103', 'Arts', 'Intermediate'),
     ('567a7f96-68b5-4e91-bb7f-190fc4f3ba44', 'The Grouse Grind', '2020-04-25 08:30:00 AM', '2020-04-25 04:00:00 PM', 'Let’s do the Grouse Grind. Meet at 8:30am, hike, and then eat afterwards.', 3425, '148 Street', 'V3S 4P5', '90cb8ff1-b30a-495a-afde-f1e2baf08e1a', 'Fitness', 'Advanced'),
     ('b4026227-01d9-4801-a0c7-d845587d266a', 'Pie Craw', '2020-04-10 06:00:00 PM', '2020-04-10 09:00:00 PM', 'You’ve heard of a pub crawl - join a community of fellow pie lovers for a pie crawl. We’ll be heading to all the major pie shops.', 10724, 'Bird Road', 'V5K 6D3', 'fa5d90dc-bed3-47f3-8ce8-430100d39908', 'Food & Drink', 'Intermediate'),
-    ('68f791c4-ef66-43c3-8fa0-7e213f2f8108', 'JavaScript and ML Meetup', '2020-03-13 06:00:00 PM', '2020-03-13 08:00:00 PM', 'An intro to Machine Learning with Tensorflow JS. The event will include implementation and a look into real world examples', 3194, 'Main Street', 'V7V 8KD', 'aa3432af-1257-46f7-aa0a-89ebb42b17db', 'Technology', 'Beginner');
+    ('68f791c4-ef66-43c3-8fa0-7e213f2f8108', 'JavaScript and ML Meetup', '2020-03-13 06:00:00 PM', '2020-03-13 08:00:00 PM', 'An intro to Machine Learning with Tensorflow JS. The event will include implementation and a look into real world examples', 3194, 'Main Street', 'V7V 8KD', 'aa3432af-1257-46f7-aa0a-89ebb42b17db', 'Technology', 'Beginner'),
+    ('501dcdfb-1459-484f-9e49-12879dd7d33e','Bubble Tea Sampling', '2020-06-05 02:30:00 PM', '2020-06-05 11:00:00 PM', 'Experience lots of different bubble tea flavours!', 9999, 'Rainbow Road', 'V6K 1J8', '04e20861-1e48-41c2-b328-d4ff9975e94d', 'Food & Drink', 'Intermediate'),
+    ('40329aba-1c81-4876-893c-6c04498a84a9','Migoreng Eating Contest', '2020-06-05 02:30:00 PM', '2020-06-05 11:00:00 PM', 'Whoever can stomach the most migoreng wins $100 and a 5 boxes of migoreng!', 9999, 'Rainbow Road', 'V6K 1J8', '58b6408c-8831-4605-8ecf-b3ef65ecef22', 'Food & Drink', 'Intermediate'),
+    ('de03c873-0fbe-4772-b29a-4671074e1c2d','Sushi Lessons', '2020-07-05 01:30:00 PM', '2020-07-05 3:00:00 PM', 'Learn to make authentic and delicious Japanese-style sushi rolls', 9999, 'Rainbow Road', 'V6K 1J8', 'ec2e8923-84de-4dc0-ad7f-c5162aa3231b', 'Food & Drink', 'Intermediate');
 
 CREATE TABLE Review(
 	ID uuid DEFAULT uuid_generate_v4 (),
@@ -195,7 +204,18 @@ VALUES
     ('1fd87df8-7106-43b1-866c-dc8673565ae2', '68f791c4-ef66-43c3-8fa0-7e213f2f8108', true),
     ('69b734c1-d441-45ea-82fc-fae17c129294', '461bc700-23be-463c-a07c-3d52db261e26', true),
     ('d31c296d-6e8d-4eb1-9fa8-1a65a8d7cbb8', 'b4026227-01d9-4801-a0c7-d845587d266a', false),
-    ('79b83a7e-2e29-4c1e-a2fe-b9c5ac4f18da', '68f791c4-ef66-43c3-8fa0-7e213f2f8108', true);
+    ('79b83a7e-2e29-4c1e-a2fe-b9c5ac4f18da', '68f791c4-ef66-43c3-8fa0-7e213f2f8108', true),
+    ('79b83a7e-2e29-4c1e-a2fe-b9c5ac4f18da', '501dcdfb-1459-484f-9e49-12879dd7d33e', false),
+	('69b734c1-d441-45ea-82fc-fae17c129294', '501dcdfb-1459-484f-9e49-12879dd7d33e', false),
+	('d31c296d-6e8d-4eb1-9fa8-1a65a8d7cbb8', '501dcdfb-1459-484f-9e49-12879dd7d33e', false),
+    ('1fd87df8-7106-43b1-866c-dc8673565ae2', '501dcdfb-1459-484f-9e49-12879dd7d33e', false),
+	('5478fb4e-2d75-4079-9ffd-7b5650e366cc', '501dcdfb-1459-484f-9e49-12879dd7d33e', true),
+    ('1fd87df8-7106-43b1-866c-dc8673565ae2', '40329aba-1c81-4876-893c-6c04498a84a9', false),
+	('5478fb4e-2d75-4079-9ffd-7b5650e366cc', '40329aba-1c81-4876-893c-6c04498a84a9', true),
+	('d31c296d-6e8d-4eb1-9fa8-1a65a8d7cbb8', '40329aba-1c81-4876-893c-6c04498a84a9', false),
+    ('d31c296d-6e8d-4eb1-9fa8-1a65a8d7cbb8', 'de03c873-0fbe-4772-b29a-4671074e1c2d', false),
+    ('1fd87df8-7106-43b1-866c-dc8673565ae2', 'de03c873-0fbe-4772-b29a-4671074e1c2d', false),
+	('5478fb4e-2d75-4079-9ffd-7b5650e366cc', 'de03c873-0fbe-4772-b29a-4671074e1c2d', true);
 
 CREATE TABLE Interests (
 	ProfileID uuid,
