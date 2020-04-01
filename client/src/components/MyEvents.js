@@ -55,13 +55,13 @@ export default class MyEvents extends React.Component {
         const adminEvents = [];
         const pastEvents = [];
         this.state.events.forEach(event => {
-            if (event.date > Date.now()) {
+            if(event.isAdmin) {
+                adminEvents.push(event)
+            }
+            if (event.date < Date.now()) {
                 pastEvents.push(event);
             } else {
                 upcomingEvents.push(event);
-                if(event.isAdmin) {
-                    adminEvents.push(event)
-                }
             }
         })
 
