@@ -23,6 +23,7 @@ export default class MediaCard extends React.Component{
             id: props.id
         };
         this.handleEventClick = this.handleEventClick.bind(this);
+    
         this.colours = [
             '#82a0ff',
             '#ff94f4',
@@ -55,6 +56,7 @@ export default class MediaCard extends React.Component{
           );
         }
       }
+
 
     getRandomColour = () => {
         return this.colours[Math.floor(Math.random() * this.colours.length)];

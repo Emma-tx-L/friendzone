@@ -70,7 +70,8 @@ export default class CardAction extends React.Component{
           return (
             <Redirect
               to={{
-                pathname: this.redirectPath
+                pathname: this.redirectPath,
+                state: { id: this.state.eventID }
               }}
             />
           );
@@ -80,7 +81,7 @@ export default class CardAction extends React.Component{
     handleAction = () => {
             const profileID = localStorage.getItem('profileID'); 
             if (this.props.action === "edit") {
-                // TODO: this.redirectPath = edit-page-path
+                this.redirectPath = "/edit-event";
                 this.setRedirect();
             } else if (this.props.action === "unregister") {
                 this.unregisterEvent(profileID);
