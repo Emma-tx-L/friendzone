@@ -1,0 +1,14 @@
+@import url("index.css");
+
+.main {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
+
+.interests {
+  list-style: none;
+}
+
+.list-text {
+  padding: calc(var(--p-unrelatedElements) * 2);
+}

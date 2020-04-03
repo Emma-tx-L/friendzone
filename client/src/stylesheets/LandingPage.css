@@ -45,8 +45,42 @@ header .logo {
   transform: translate(-50%, -50%);
 }
 
+.circle {
+  font-size: 2rem;
+  font-family: 'Gochi Hand', cursive;
+  text-align: center;
+  color: var(--lightblue);
+  padding: 0.25rem;
+  border: 4px var(--lightblue) solid;
+  height: auto;
+  width: 40px;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.subtitle {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--lightblue);
+  font-weight: 700;
+  font-size: 1rem;
+  padding-top: var(--p-unrelatedElements);
+  padding-bottom: var(--p-relatedElements);
+}
+
+.instruction{
+  font-family: 'Montserrat', sans-serif;  
+  font-size: 0.75rem;
+}
+
+
 .splash .logo {
   font-size: 4rem;
+}
+
+.box{
+  text-align: center;
+  padding: calc(var(--p-unrelatedElements) * 2);
+  margin: auto;
 }
 
 footer {
