@@ -85,6 +85,7 @@ export default class MediaCard extends React.Component{
                 <CardAction
                     action={this.props.action}
                     eventID={this.props.id}
+                    delete={this.props.delete}
                 />
             </CardActions>
             </Card>

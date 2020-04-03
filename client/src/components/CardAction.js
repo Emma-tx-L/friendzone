@@ -93,15 +93,42 @@ export default class CardAction extends React.Component{
             return;
     }
 
+    handleDelete = async () => {
+        console.log('delete ' + this.props.eventID);
+        const res = await axios.post(`http://localhost:5000/api/event/delete/`, {
+            eventID: this.props.eventID
+        });
+        try {
+            if (res.status != 200) {
+                alert("There was an error, please try again later.");
+            } else if (res.data.length == 0) {
+                alert("You have delete the event");
+            }
+        } catch (e) {
+            console.log(e);
+            alert("There was an error, please try again later.");
+        }
+        window.location.reload();
+    }
+
 
     render() {
         if (this.checkValidAction()) {
             return (
-            <Button onClick={() => this.handleAction()} size="small" color="primary" className="card_action" 
+            <React.Fragment>
+                <Button onClick={() => this.handleAction()} size="small" color="primary" className="card_action" 
                     style={{position:'absolute', bottom: '1vw', right: '1vw', }}>
                         {this.renderRedirect()}
                         {this.props.action}
-            </Button>)
+                </Button>
+                {this.props.delete &&
+                <Button onClick={() => this.handleDelete()} size="small" color="primary" className="card_action" 
+                    style={{position:'absolute', bottom: '1vw', left: '1vw', }}>
+                    {this.renderRedirect()}
+                    Delete
+                </Button> }
+            </React.Fragment>
+            )
         } else {
             return null;
         }

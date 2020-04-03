@@ -117,6 +117,7 @@ export default class MyEvents extends React.Component {
             <EventGrid 
                 events = {this.state.upcomingEvents}
                 action = "unregister"
+                delete = {false}
             />
             <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
@@ -126,6 +127,7 @@ export default class MyEvents extends React.Component {
             <EventGrid 
                 events = {this.state.adminEvents}
                 action = "edit"
+                delete = {true}
             />
             <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
                 <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
@@ -134,6 +136,7 @@ export default class MyEvents extends React.Component {
             </Container>
             <EventGrid 
                 events = {this.state.pastEvents}
+                delete = {false}
             />
         </Container>
         );

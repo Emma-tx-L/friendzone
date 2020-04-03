@@ -239,7 +239,7 @@ router.post('/register/', async (req, res) => {
 })
 
 /**
- * Deregisters event from profile
+ * Deregisters event from profile, sideffect, if you are the admin, you will be removed as admin too
  */
 router.post('/unregister/', async (req, res) => {
     let eventID = req.body.eventID;
@@ -249,6 +249,26 @@ router.post('/unregister/', async (req, res) => {
         WHERE 
         ProfileID=$1 AND EventID=$2`
     const values = [profileID, eventID];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ * Delete event
+ */
+
+router.post('/delete/', async (req, res) => {
+    let eventID = req.body.eventID;
+    const query = 
+    `DELETE FROM event
+        WHERE 
+        id=$1`
+    const values = [eventID];
     try {
         const { rows } = await db.query(query, values);
         res.json(rows);

@@ -28,7 +28,9 @@ export default class MyEvents extends React.Component {
                             event={event.name} 
                             time={event.starttime} 
                             place={event.place}
-                            action={this.props.action}/>
+                            action={this.props.action}
+                            delete={this.props.delete}
+                        />                         
                     </GridListTile>
                 ))}
                 </GridList>
