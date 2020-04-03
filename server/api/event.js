@@ -221,14 +221,54 @@ router.get('/upcoming/:type', async (req, res) => {
 /**
  * Registers profile in event as non-admin
  */
-router.get('/register/:eventID:profileID', async (req, res) => {
-    let eventID = req.params.eventID;
-    let profileID = req.params.profileID;
+router.post('/register/', async (req, res) => {
+    let eventID = req.body.eventID;
+    let profileID = req.body.profileID;
     const query = 
     `INSERT INTO Registered
         VALUES 
         ($1, $2, false)`
     const values = [profileID, eventID];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ * Deregisters event from profile, sideffect, if you are the admin, you will be removed as admin too
+ */
+router.post('/unregister/', async (req, res) => {
+    let eventID = req.body.eventID;
+    let profileID = req.body.profileID;
+    const query = 
+    `DELETE FROM Registered
+        WHERE 
+        ProfileID=$1 AND EventID=$2`
+    const values = [profileID, eventID];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ * Delete event
+ */
+
+router.post('/delete/', async (req, res) => {
+    let eventID = req.body.eventID;
+    const query = 
+    `DELETE FROM event
+        WHERE 
+        id=$1`
+    const values = [eventID];
     try {
         const { rows } = await db.query(query, values);
         res.json(rows);
