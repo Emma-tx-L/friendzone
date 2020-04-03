@@ -23,7 +23,7 @@
 - open `pgAdmin` -> `PostgreSQL 12` -> `Databases`
 - Right click `Databases` and `Create` -> `Database`
 - name it `'friendzone'` and the owner should be `'postgres'` (if you change this, then you'll have to change the database connection URI
-- In pgAdmin, go to Tools -> Query Tools and paste the sql scripts in scripts folder to populate create/populate tables
+- In pgAdmin, go to `Tools` -> `Query Tools` and paste the sql scripts in scripts folder to populate create/populate tables
 
 
 ### Misc
