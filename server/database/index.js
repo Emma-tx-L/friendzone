@@ -16,12 +16,14 @@ class Database {
   }
 
   async query(text, params) {
+    const client = await this._pool.connect();
     try {
-      const client = await this._pool.connect();
       let queryRes = await client.query(text, params);
+      client.release();
       return queryRes;
     } catch (e){
       console.log('async query error');
+      client.release();
       throw (e);
     }
   } 
