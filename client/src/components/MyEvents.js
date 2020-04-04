@@ -62,7 +62,6 @@ export default class MyEvents extends React.Component {
 
                 fetchedEvents.push(event);
             })
-            console.log(res.data);
             this.setState({ events: fetchedEvents});
             this.sortMyEvents();
         }
