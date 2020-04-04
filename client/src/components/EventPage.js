@@ -102,6 +102,7 @@ class Event extends React.Component {
     const postalcode = this.state.event?.postalcode;
     const chatMessages = this.state.chat && this.state.chat;
     const eventid = this.state.event?.id;
+    const isPast = this.state.event && moment(this.state.event?.starttime).isBefore(moment());
     return (
         <Container>
           <Container>
@@ -135,7 +136,7 @@ class Event extends React.Component {
           />
           </Paper>
           </Container>
-          <ReviewList eventid={eventid}/>
+          {isPast && <ReviewList eventid={eventid}/>}
         </Container>
     );
   }
