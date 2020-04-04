@@ -14,6 +14,7 @@ export default class CardAction extends React.Component{
         this.state = {
             redirect: false,
         };
+        console.log(props);
         this.redirectPath =  window.location.pathname;
     }
 
@@ -71,7 +72,7 @@ export default class CardAction extends React.Component{
             <Redirect
               to={{
                 pathname: this.redirectPath,
-                state: { id: this.state.eventID }
+                state: { id: this.props.eventID }
               }}
             />
           );
