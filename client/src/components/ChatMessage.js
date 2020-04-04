@@ -2,7 +2,6 @@ import React from 'react';
 import { ListItem, ListItemText } from "@material-ui/core";
 
 function ChatMessage(props){
-    // const time = props.time;
     const content = props.content;
     const name = props.name;
     return(

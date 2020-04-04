@@ -15,10 +15,9 @@ router.get('/', async (req, res) => {
 
 router.get('/login', async (req, res) => {
     let email = req.query.email;
-    console.log('email: ' + email);
     let password = req.query.password;
 
-    const text = 'SELECT a.email, p.ID, p.firstname FROM account a LEFT JOIN profile p ON a.email=p.email WHERE a.email=$1 AND a.password=$2';
+    const text = 'SELECT a.email, p.ID, p.firstname, p.lastname FROM account a LEFT JOIN profile p ON a.email=p.email WHERE a.email=$1 AND a.password=$2';
     const values = [email, password];
     try {
         const { rows } = await db.query(text, values);

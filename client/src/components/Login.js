@@ -26,17 +26,15 @@ class Login extends React.Component {
   handlePasswordChange(e) {
     this.setState({ password: e.target.value });
   }
-
   async handleLogin() {
     let email = this.state.email;
     let password = this.state.password;
-    // http://localhost:5000/api/account/login/?email=jon@gmail.com&password=1234
     const res = await axios.get("http://localhost:5000/api/account/login?" + 'email=' + email + '&password=' + password);
     if (res.data.length > 0){
-      console.log(res.data);
       localStorage.setItem('profileID', res.data[0].id);
-      localStorage.setItem('firstname', res.data[0].firstname);
       localStorage.setItem('email', res.data[0].email);
+      localStorage.setItem('firstname', res.data[0].firstname);
+      localStorage.setItem('lastname', res.data[0].lastname);
       this.setState({redirect: true});
     }
     else {
@@ -50,7 +48,6 @@ class Login extends React.Component {
         <Redirect
           to={{
             pathname: "/home",
-            // state: { username: this.state.username }
           }}
         />
       );
@@ -59,8 +56,6 @@ class Login extends React.Component {
   
 
   render() {
-    // console.log(this.state.email);
-    // console.log(this.state.password);
     return (
       <Container component="main" maxWidth="xs">
         {this.redirectOnLogin()}

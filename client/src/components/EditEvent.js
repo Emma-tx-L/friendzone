@@ -45,7 +45,6 @@ class EditEvent extends React.Component {
         if (res && res.status == 200){
           const event = res.data[0];
           this.setEvent(event);
-          console.log(event);
         }
 
       } 
@@ -59,7 +58,6 @@ class EditEvent extends React.Component {
   setEvent(event){
     const startDate = moment(event.starttime).format('YYYY-MM-DDTHH:mm:ss.SSS')
     const endDate = moment(event.endtime).format('YYYY-MM-DDTHH:mm:ss.SSS')
-    console.log(event);
     this.setState({
       newEvent: {
         eventName: event.name,
@@ -289,7 +287,6 @@ class EditEvent extends React.Component {
   
       <Button 
         type="submit"
-        // value="Submit"
         variant="contained"
         style={{ borderRadius: 25, position:'absolute', right:'175px', marginTop:'50px', backgroundColor:'#5da4a9', color:'white'}}> 
         Create

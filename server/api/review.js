@@ -5,7 +5,6 @@ var router = new Router();
 
 router.get('/:id', async (req, res) => {
     let eventId = req.params.id;
-    console.log('eventId: ' + eventId);
     const query = 
     `SELECT *
     FROM review
@@ -22,7 +21,6 @@ router.get('/:id', async (req, res) => {
 
 router.get('/average/:id', async (req, res) => {
     let eventId = req.params.id;
-    console.log('eventId: ' + eventId);
     const query = 
     `SELECT AVG(rating)
     FROM review
