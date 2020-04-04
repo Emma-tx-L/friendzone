@@ -14,7 +14,6 @@ export default class CardAction extends React.Component{
         this.state = {
             redirect: false,
         };
-        console.log(props);
         this.redirectPath =  window.location.pathname;
     }
 
