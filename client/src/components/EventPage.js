@@ -24,7 +24,7 @@ class Event extends React.Component {
   }
   
   async componentDidMount() {
-    this.socket.on('JOIN_CHAT', () => console.log('You joined the cat'));
+    this.socket.on('JOIN_CHAT', () => console.log('You joined the chat'));
     this.socket.on('CHAT_MESSAGE', (message) => {
       let currentChat = this.state.chat;
       currentChat.push(message);
@@ -80,7 +80,6 @@ class Event extends React.Component {
   }
 
   handleEnterPressed = (event) => {
-    console.log('pressed enter');
     event.preventDefault();
     const code = event.keyCode || event.which;
     if (code === 13) {
@@ -89,8 +88,6 @@ class Event extends React.Component {
   };
 
   render() {
-    //TODO: Use Moment for dates.
-    //TODO: Style
     const name = this.state.event?.name;
     const starttime = moment(this.state.event?.starttime).format('MMMM Do YYYY, h:mm:ss a');
     const endtime = moment(this.state.event?.endtime).format('MMMM Do YYYY, h:mm:ss a');
@@ -102,6 +99,7 @@ class Event extends React.Component {
     const postalcode = this.state.event?.postalcode;
     const chatMessages = this.state.chat && this.state.chat;
     const eventid = this.state.event?.id;
+    const isPast = this.state.event && moment(this.state.event?.starttime).isBefore(moment());
     return (
         <Container>
           <Container>
@@ -135,7 +133,7 @@ class Event extends React.Component {
           />
           </Paper>
           </Container>
-          <ReviewList eventid={eventid}/>
+          {isPast && <ReviewList eventid={eventid}/>}
         </Container>
     );
   }

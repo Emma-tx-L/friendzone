@@ -54,10 +54,6 @@ class ReviewList extends React.Component {
         let reviewToPost = { id, comment, rating, dateposted, eventid };
         const res = await axios.post("http://localhost:5000/api/review/", reviewToPost);
         console.log('res: ' + JSON.stringify(res));
-        // let previousReviews = this.state.reviews;
-        // let newReviews = previousReviews.push(reviewToPost);
-        // this.setState({ reviews: newReviews, addReviewDialog: false });
-        //Janky reload because optimistic update isnt working for some reason
         window.location.reload(false);
     }
 

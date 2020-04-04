@@ -10,7 +10,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import EventIcon from '@material-ui/icons/Event';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import axios from "axios";
+import { Link, useHistory } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -31,16 +32,21 @@ const useStyles = makeStyles(theme => ({
 export default function Navbar() {
   const classes = useStyles();
   const history = useHistory();
+  const landing = 'http://localhost:3000/'
+  const login = 'http://localhost:3000/login'
   const loggedIn = localStorage.getItem('profileID');
+  let location = window.location.href;
+  const firstName = localStorage.getItem('firstname');
+  const lastName = localStorage.getItem('lastname');
+
 
   const handleLogout = () => {
     localStorage.clear();
     history.push('/');
   }
 
-  return (
-    !loggedIn ? null : 
-    <div className={classes.root}>
+  return (loggedIn && (location !== landing) && (location !== login)) ?
+    <div className={classes.root}> 
       <CssBaseline />
       <Drawer
         className={classes.drawer}
@@ -55,7 +61,7 @@ export default function Navbar() {
           <div className="circle-icon">
           <PersonOutlineIcon className="user-icon"/>
           </div>
-          <div className="name">Jane Doe</div>
+      <div className="name">{`${firstName} ${lastName}`}</div>
         </div>
         <List>
           <ListItem button>
@@ -87,6 +93,6 @@ export default function Navbar() {
           </ListItem>
         </List>
       </Drawer>
-    </div>
-  );
-}
+    </div> 
+    : null;
+  }

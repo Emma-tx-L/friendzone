@@ -14,7 +14,6 @@ export default class CardAction extends React.Component{
         this.state = {
             redirect: false,
         };
-        console.log(props);
         this.redirectPath =  window.location.pathname;
     }
 
@@ -31,7 +30,6 @@ export default class CardAction extends React.Component{
                 profileID,
                 eventID: this.props.eventID
             });
-        console.log(res);
         try {
             if (res.status != 200) {
                 alert("There was an error, please try again later.");
@@ -50,7 +48,6 @@ export default class CardAction extends React.Component{
             profileID,
             eventID: this.props.eventID
         });
-        console.log(res);
         try {
             if (res.status != 200) {
                 alert("There was an error, please try again later.");
@@ -95,7 +92,6 @@ export default class CardAction extends React.Component{
     }
 
     handleDelete = async () => {
-        console.log('delete ' + this.props.eventID);
         const res = await axios.post(`http://localhost:5000/api/event/delete/`, {
             eventID: this.props.eventID
         });

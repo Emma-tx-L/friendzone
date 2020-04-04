@@ -6,7 +6,6 @@ var router = new Router();
 
 router.get('/:id', async (req, res) => {
     let eventChatId = req.params.id;
-    console.log('eventChatId: ' + eventChatId);
     const query = 
     `SELECT cm.content, cm.chatid, cm.profileid, cm.time, p.firstname
     FROM chatcomment cm, chat c, event e, profile p

@@ -9,7 +9,10 @@ export default class LandingPage extends React.Component {
 
   constructor(props) {
     super(props);
-    localStorage.clear();
+}
+
+componentDidMount(){
+  localStorage.clear();
 }
 
   render(){

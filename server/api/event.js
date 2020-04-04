@@ -10,7 +10,8 @@ var router = new Router();
 async function setChat(id, eventName) {
     const query = `INSERT INTO chat VALUES('${id}', '${eventName}')`;
     try {
-        await db.query(query);
+        const { response } = await db.query(query);
+        res.json(response);
     } catch(e){
         console.log('error with setchat' + e);
     }
@@ -25,7 +26,8 @@ async function setRegion(postalCode, province, city) {
     if (rows.length === 0){
         const query = `INSERT INTO region VALUES('${postalCode}', '${province}', '${city}')`;
         try {
-            await db.query(query);
+            const { response } = await db.query(query);
+            res.json(response);
         } catch(e){
             console.log('error setting region' + e);
         }
@@ -41,7 +43,8 @@ async function setAddress(streetNumber, streetName, postalCode) {
     if (rows.length === 0){
         const query = `INSERT INTO address VALUES(${streetNumber}, '${streetName}', '${postalCode}')`;
         try {
-            await db.query(query);
+            const {response} = await db.query(query);
+            res.json(response);
         } catch(e){
             console.log('error setting address' + e);
         }
@@ -54,7 +57,8 @@ async function setAddress(streetNumber, streetName, postalCode) {
 async function updateChat(id, eventName) {
     const query = `UPDATE chat SET name='${eventName}' WHERE id='${id}'`
     try {
-        await db.query(query);
+        const { response } = await db.query(query);
+        res.json(response);
     } catch(e){
         console.log('error with update chat' + e);
     }
@@ -66,7 +70,8 @@ async function updateChat(id, eventName) {
 async function registerEvent(profileID, eventID) {
     const query = `INSERT INTO registered VALUES('${profileID}', '${eventID}', true)`;
     try {
-        await db.query(query);
+        const { response } = await db.query(query);
+        res.json(response);
     } catch(e){
         console.log('error registering event' + e);
     }
@@ -85,9 +90,9 @@ router.post('/create-event', async (req, res)=>{
     await setAddress(event.aptNumber, event.streetName, event.postalCode);
     const query = `INSERT INTO event VALUES('${eventID}', '${event.eventName}', '${event.startDate}', '${event.endDate}', '${event.description}', ${event.aptNumber}, '${event.streetName}', '${event.postalCode}', '${chatID}', '${event.activityType}', '${event.activityLevel}')`
     try {
-        await db.query(query);
-        await registerEvent(profileID, eventID);
-        res.status(200);
+        const {rows } = await db.query(query);
+        const { response } = await registerEvent(profileID, eventID);
+        res.json(rows, response);
     }
     catch(e) {
         console.log('error create event api' + e);
@@ -109,8 +114,8 @@ router.post('/update-event', async (req, res)=>{
 	SET id='${eventID}', name='${event.eventName}', starttime='${event.startDate}', endtime='${event.endDate}', description='${event.description}', streetnumber=${event.aptNumber}, streetname='${event.streetName}', postalcode='${event.postalCode}', chatid='${chatID}', activitytype='${event.activityType}', activitylevel='${event.activityLevel}'
 	WHERE id='${eventID}'`
     try {
-        await db.query(query);
-        res.status(200);
+        const {rows} = await db.query(query);
+        res.json(rows);
     }
     catch(e) {
         console.log('error update event api' + e);
@@ -274,7 +279,7 @@ router.post('/delete/', async (req, res) => {
         res.json(rows);
     } catch(e){
         console.log('error: ' + e);
-        return res.json(e);
+    return res.json(e);
     }
 })
 
