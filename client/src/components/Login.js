@@ -65,6 +65,7 @@ class Login extends React.Component {
       <Container component="main" maxWidth="xs">
         {this.redirectOnLogin()}
         <form noValidate>
+          <h1 style={{ color: "#ed6a5a", fontFamily: "Gochi Hand, cursive", textAlign: "center" }}> FriendZone</h1>
           <TextField
             variant="outlined"
             margin="normal"
@@ -90,11 +91,13 @@ class Login extends React.Component {
             onChange={this.handlePasswordChange}
           />
           <Button
+            style={{ backgroundColor: "#ed6a5a", marginTop: "1em" }}
             variant="contained"
             color="default"
             onClick={this.handleLogin}
+            fullWidth
           >
-            Sign In
+            <span style={{ color: "white", fontFamily: "Gochi Hand, cursive", textAlign: "center", fontSize: "1.5em" }}>Sign In</span>
           </Button>
         </form>
       </Container>
