@@ -1,5 +1,5 @@
 var { Pool } = require('pg');
-const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:aazhar@localhost:5432/friendzone';
+const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:123456@localhost:5432/friendzone';
 const SSL = process.env.NODE_ENV === 'production'; 
 
 class Database {
