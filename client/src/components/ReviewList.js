@@ -49,7 +49,7 @@ class ReviewList extends React.Component {
         let id = uuid();
         let comment = this.state.review;
         let rating = this.state.rating;
-        let dateposted = moment();
+        let dateposted = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
         let eventid = this.state.eventid;
         let reviewToPost = { id, comment, rating, dateposted, eventid };
         const res = await axios.post("http://localhost:5000/api/review/", reviewToPost);

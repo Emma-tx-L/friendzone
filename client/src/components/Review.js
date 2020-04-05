@@ -8,11 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import '../stylesheets/ReviewCard.css';
 import Container from '@material-ui/core/Container';
+import moment from 'moment'
 
 function Review(props){
     const rating = props.rating;
     const comment = props.comment;
-    const datePosted = props.dateposted;
+    const datePosted = moment(props.dateposted).format('MMMM Do YYYY, h:mm a');
 
     return(
         <React.Fragment>
