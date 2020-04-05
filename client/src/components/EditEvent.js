@@ -289,7 +289,7 @@ class EditEvent extends React.Component {
         type="submit"
         variant="contained"
         style={{ borderRadius: 25, position:'absolute', right:'175px', marginTop:'50px', backgroundColor:'#5da4a9', color:'white'}}> 
-        Create
+        Save
       </Button>
             
             </form>
