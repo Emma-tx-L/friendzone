@@ -10,8 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import '../stylesheets/EventPage.css';
 import Typography from '@material-ui/core/Typography';
 import ReviewList from './ReviewList';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import Button from "@material-ui/core/Button";
 
 class Event extends React.Component {
   constructor(props) {
@@ -35,6 +34,8 @@ class Event extends React.Component {
         activitylevel: false,
       }
     };
+    this.handleChange = this.handleChange.bind(this);
+    
   }
   
   async componentDidMount() {
@@ -102,8 +103,51 @@ class Event extends React.Component {
     }
   };
 
-  handleChange = async (event) => {
-    this.setState(Object.assign(this.state.checkboxes, { [event.target.name]: event.target.checked }));
+  handleChange = async (value) => {
+    if (value === 'description') {
+        this.setState({
+          checkboxes: {
+            name: false,
+            starttime: false,
+            endtime: false,
+            description: true,
+            streetnumber: false,
+            streetname: false,
+            postalcode: false,
+            activitytype: true,
+            activitylevel: true,
+          }})
+    }
+    if (value === 'location') {
+      this.setState({
+        checkboxes: {
+          name: false,
+          starttime: true,
+          endtime: true,
+          description: false,
+          streetnumber: true,
+          streetname: true,
+          postalcode: true,
+          activitytype: false,
+          activitylevel: false,
+        }
+      })
+    }
+    if (value === 'all'){
+      this.setState({
+        checkboxes: {
+          name: true,
+          starttime: true,
+          endtime: true,
+          description: true,
+          streetnumber: true,
+          streetname: true,
+          postalcode: true,
+          activitytype: true,
+          activitylevel: true,
+        }
+      })
+    }
     let checkboxes = this.state.checkboxes;
     let checked = [];
     for(var key in checkboxes) {
@@ -111,22 +155,20 @@ class Event extends React.Component {
         checked.push(key);
       }
     }
-    await this.fetchEventData(this.state.eventID, checked);
+    await this.fetchEventData(this.state.eventID, checked)
   };
 
   async fetchEventData(id, checked){
-    console.log(checked, id)
     try {
-      const res = await axios.get("http://localhost:5000/api/event/choices",  { data: {id: id, checked: checked}});
+      const res = await axios.get("http://localhost:5000/api/event/my-choices/" + checked + '/' + id);
       if (res && res.status == 200){
-        console.log(res.data[0]);
+        console.log(res.data);
       }
     } 
     catch (err) {
       console.log('err fetching event attr' + err);
     }
   }
-
 
   render() {
     const name = this.state.event?.name;
@@ -145,44 +187,59 @@ class Event extends React.Component {
         <Container>
           <Container>
           <Paper className="paper">
-          {/* <FormControlLabel
-            control={ <Checkbox checked={this.state.all} onChange={this.handleChange} name="all" color="primary"/>} label="All"
-          /> */}
-           <FormControlLabel
-            control={ <Checkbox checked={this.state.name} onChange={this.handleChange} name="name" color="primary"/>} label="Name"
-          />
-           <FormControlLabel
-            control={ <Checkbox checked={this.state.starttime} onChange={this.handleChange} name="starttime" color="primary"/>} label="Start Time"
-          />
-          <FormControlLabel
-            control={ <Checkbox checked={this.state.endtime} onChange={this.handleChange} name="endtime" color="primary"/>} label="End Time"
-          />
-          <FormControlLabel
-            control={ <Checkbox checked={this.state.description} onChange={this.handleChange} name="description" color="primary"/>} label="Description"
-          />
-           <FormControlLabel
-            control={ <Checkbox checked={this.state.streetnumber} onChange={this.handleChange} name="streetnumber" color="primary"/>} label="Apt Number"
-          />
-           <FormControlLabel
-            control={ <Checkbox checked={this.state.streetname} onChange={this.handleChange} name="streetname" color="primary"/>} label="Street"
-          />
-          <FormControlLabel
-            control={ <Checkbox checked={this.state.postalcode} onChange={this.handleChange} name="postalcode" color="primary"/>} label="Postal Code"
-          />
-          <FormControlLabel
-            control={ <Checkbox checked={this.state.activitytype} onChange={this.handleChange} name="activitytype" color="primary"/>} label="Activity Type"
-          />
-          <FormControlLabel
-            control={ <Checkbox checked={this.state.activitylevel} onChange={this.handleChange} name="activitylevel" color="primary"/>} label="Activity Level"
-          />
 
+        
+              <Button
+              onClick={() => this.handleChange('all')}
+              variant="contained"
+              value="all"
+              checked={this.state.checkboxes.name}
+              style={{ borderRadius: 25, backgroundColor:'#5da4a9', color:'white'}}>Show all details</Button>
+             
+             <Button
+              onClick={() => this.handleChange('description')}
+              variant="contained"
+              value="description"
+              checked={this.state.checkboxes.description}
+              style={{ borderRadius: 25,  backgroundColor:'#5da4a9', color:'white'}}>Show description</Button>
+
+              <Button
+              onClick={() => this.handleChange('location')}
+              variant="contained"
+              value="location"
+              checked={this.state.checkboxes.description}
+              style={{ borderRadius: 25, backgroundColor:'#5da4a9', color:'white'}}>Show location and time</Button>
+          
+          { this.state.checkboxes.name  &&
             <Typography className="title" variant="h3" style={{fontFamily: "'Montserrat', sans-serif", paddingBottom:'2rem'}}>{name}</Typography>
+            }
+
+            {
+              this.state.checkboxes.description && 
             <Typography className="nested" variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>What is it? <span style={{marginLeft: "3px", color: 'black'}}>{description}</span></Typography>
+            }
+
+            {
+            this.state.checkboxes.activitytype && 
             <Typography className="nested"variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Type: <span style={{marginLeft: "3px", color: 'black'}}>{activitytype}</span></Typography>
+            }
+            {
+            this.state.checkboxes.activitylevel && 
             <Typography className="nested"variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Level: <span style={{marginLeft: "3px", color: 'black'}}>{activitylevel}</span></Typography>
+            }
+            {
+            this.state.checkboxes.starttime && 
             <Typography className="nested" variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Start:  <span style={{marginLeft: "3px", color: 'black', marginRight: "3px"}}>{starttime}</span></Typography>
-            <Typography className="nested"variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>End: <span style={{marginLeft: "3px", color: 'black'}}>{endtime}</span></Typography>
-            <Typography className="nested" variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Location: <span style={{marginLeft: "3px", color: 'black'}}>{streetnumber} {streetname} {postalcode}</span></Typography>
+            }   
+            {
+              this.state.checkboxes.endtime && 
+              <Typography className="nested"variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>End: <span style={{marginLeft: "3px", color: 'black'}}>{endtime}</span></Typography>
+              }
+            {
+              this.state.checkboxes.streetnumber && 
+              <Typography className="nested" variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Location: <span style={{marginLeft: "3px", color: 'black'}}>{streetnumber} {streetname} {postalcode}</span></Typography>
+              }
+        
           </Paper>
           </Container>
 
