@@ -28,3 +28,6 @@
 
 
 ### Misc
+## Tech Stack:
+- Frontend: React (JavaScript)
+- Backend/DB: NodeJS (Javascript), PostgreSQL
