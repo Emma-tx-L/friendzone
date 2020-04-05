@@ -8,7 +8,7 @@
 - pgAdmin February 2020 release https://www.pgadmin.org/download/pgadmin-4-windows/
 - VS Code https://code.visualstudio.com/
 
-### Locally
+### Locally - Clone the repo and then do the following: 
 #### Client
 - `cd client`
 - `npm install` to install all dependencies 
