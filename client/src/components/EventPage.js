@@ -244,8 +244,8 @@ class Event extends React.Component {
               </ListItem>)
               }
             </List>
-            <Button onClick={this.handleUsersDisplayRegistered}>Display all registered users</Button>
-            <Button onClick={this.handleUsersDisplayNotRegistered}>Display users who are not registered</Button>
+            <Button style={{ marginRight: "1em" }} variant="contained" color="primary" onClick={this.handleUsersDisplayRegistered}>Display all registered users</Button>
+            <Button variant="contained" color="primary" onClick={this.handleUsersDisplayNotRegistered}>Display users who are not registered</Button>
           </Paper>
         </Container>
     );
