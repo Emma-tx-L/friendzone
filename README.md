@@ -31,3 +31,4 @@
 #### Tech Stack:
 - Frontend: React (JavaScript)
 - Backend/DB: NodeJS (Javascript), PostgreSQL
+- The chat uses web sockets (socket.io) and optimistic ui updates! 
