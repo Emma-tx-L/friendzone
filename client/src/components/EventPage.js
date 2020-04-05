@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import ReviewList from './ReviewList';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import { ListItem, ListItemText } from "@material-ui/core";
 
 class Event extends React.Component {
   constructor(props) {
@@ -23,6 +25,7 @@ class Event extends React.Component {
       chat: null,
       chatId: null,
       message: "",
+      usersList: [],
       checkboxes: {
         name: false,
         starttime: false,
@@ -114,6 +117,32 @@ class Event extends React.Component {
     await this.fetchEventData(this.state.eventID, checked);
   };
 
+  handleUsersDisplayRegistered = async () => {
+    let pathArr = window.location.pathname.split('/');
+    const id = pathArr[2];
+    try{
+      const res = await axios.get("http://localhost:5000/api/event/my-events/registered/" + id);
+      if (res && res.status == 200){
+        this.setState({ usersList: res.data })
+      }
+    } catch (err){
+      console.log('err: ' + err);
+    }
+  }
+
+  handleUsersDisplayNotRegistered = async () => {
+    let pathArr = window.location.pathname.split('/');
+    const id = pathArr[2];
+    try{
+      const res = await axios.get("http://localhost:5000/api/event/my-events/notregistered/" + id);
+      if (res && res.status == 200){
+        this.setState({ usersList: res.data })
+      }
+    } catch (err){
+      console.log('err: ' + err);
+    }
+  }
+
   async fetchEventData(id, checked){
     console.log(checked, id)
     try {
@@ -141,6 +170,7 @@ class Event extends React.Component {
     const chatMessages = this.state.chat && this.state.chat;
     const eventid = this.state.event?.id;
     const isPast = this.state.event && moment(this.state.event?.starttime).isBefore(moment());
+    const usersList = this.state.usersList;
     return (
         <Container>
           <Container>
@@ -206,6 +236,17 @@ class Event extends React.Component {
           </Paper>
           </Container>
           {isPast && <ReviewList eventid={eventid}/>}
+          <Paper className="paper" style={{maxHeight: 400, overflow: 'auto'}}>
+            <List>
+              {usersList?.map((user) =>
+              <ListItem divider>
+                  <ListItemText primary={user.email} />
+              </ListItem>)
+              }
+            </List>
+            <Button onClick={this.handleUsersDisplayRegistered}>Display all registered users</Button>
+            <Button onClick={this.handleUsersDisplayNotRegistered}>Display users who are not registered</Button>
+          </Paper>
         </Container>
     );
   }
