@@ -62,18 +62,18 @@ class Home extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container class="main">
         <Container maxWidth="md" style={{position: 'relative', height: '15vh'}}>
-          <Typography variant="h3" style={{ position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '65%', left: '3vh', transform: 'translateY(-50%)'}}>
+          <Typography variant="h3" style={{ fontFamily: "'Montserrat', sans-serif", position: 'absolute', fontWeight:'bold', letterSpacing:'0.05em', top: '25%', left: '3vh', transform: 'translateY(-50%)'}}>
             HOME
           </Typography>
         </Container>
         <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
-            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
-              Search By Category
+            <Typography variant="h6" style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', color:'grey', letterSpacing:'0.05em',transform: 'translateY(-50%)'}}>
+              Browse events by category
             </Typography>
         </Container>
-        <Container maxWidth="md">
+        <Container maxWidth="md" style={{paddingBottom: '3rem'}}>
           <GridList cellHeight="auto" className="category-card-list" cols={2} spacing={30}>
           {this.activityTypes.map(category => (
               <GridListTile cols={1} style={{ height: 'auto' }} key={category.type}>
@@ -83,7 +83,7 @@ class Home extends React.Component {
           </GridList>
         </Container>
         <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
-            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+            <Typography variant="h6" style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', transform: 'translateY(-50%)'}}>
               Hot n Upcoming Events
             </Typography>
         </Container>
@@ -92,7 +92,7 @@ class Home extends React.Component {
                 action = "register"
         />
         <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
-            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+            <Typography variant="h6" style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', transform: 'translateY(-50%)'}}>
               Highest Rated Events
             </Typography>
         </Container>
@@ -100,8 +100,8 @@ class Home extends React.Component {
                 events = {this.state.highestRatedEvents}
         />
         <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
-            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
-              Everyone Is Here!
+            <Typography variant="h6" style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', transform: 'translateY(-50%)'}}>
+              Everyone is Here
             </Typography>
         </Container>
         <EventGrid 

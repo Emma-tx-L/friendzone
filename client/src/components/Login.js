@@ -1,4 +1,5 @@
 import React from 'react';
+import '../stylesheets/Login.css';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from '@material-ui/core/Container';
@@ -88,7 +89,6 @@ class Login extends React.Component {
           <Button
             style={{ backgroundColor: "#ed6a5a", marginTop: "1em" }}
             variant="contained"
-            color="default"
             onClick={this.handleLogin}
             fullWidth
           >

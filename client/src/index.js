@@ -13,6 +13,7 @@ import MyEvents from './components/MyEvents';
 import EventPage from './components/EventPage';
 import EditEvent from './components/EditEvent';
 import EventCategories from './components/EventCategories';
+import EditProfile from './components/EditProfile';
 
 const App = (
     <Router>
@@ -26,6 +27,7 @@ const App = (
           <Route exact path="/my-events/:id" component={EventPage} />
           <Route exact path="/edit-event" component={EditEvent} />
           <Route exact path="/categories/:type" component={EventCategories} />
+          <Route exact path="/edit-profile" component={EditProfile} />
         </div>
     </Router>
 );

@@ -1,6 +1,5 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import EventCard from '../components/EventCard';
 import axios from "axios";
 import Typography from '@material-ui/core/Typography';
 import EventGrid from '../components/EventGrid';
@@ -48,12 +47,12 @@ export default class EventCategories extends React.Component {
         return (
         <Container component="main">
             <Container maxWidth="md" style={{position: 'relative', height: '15vh'}}>
-                <Typography variant="h3" style={{ position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '65%', left: '3vh', transform: 'translateY(-50%)'}}>
+                <Typography variant="h3" style={{ fontFamily: "'Montserrat', sans-serif", position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '65%', transform: 'translateY(-50%)', textTransform: 'uppercase' }}>
                     {this.type}
                 </Typography>
             </Container>
             <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
-            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+            <Typography variant="h6" style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', transform: 'translateY(-50%)'}}>
                     Upcoming Events
                 </Typography>
             </Container>

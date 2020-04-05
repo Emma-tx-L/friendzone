@@ -114,13 +114,13 @@ export default class CardAction extends React.Component{
             return (
             <React.Fragment>
                 <Button onClick={() => this.handleAction()} size="small" color="primary" className="card_action" 
-                    style={{position:'absolute', bottom: '1vw', right: '1vw', }}>
+                    style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', bottom: '1vw', right: '1vw', }}>
                         {this.renderRedirect()}
                         {this.props.action}
                 </Button>
                 {this.props.delete &&
                 <Button onClick={() => this.handleDelete()} size="small" color="primary" className="card_action" 
-                    style={{position:'absolute', bottom: '1vw', left: '1vw', }}>
+                    style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', bottom: '1vw', left: '1vw', }}>
                     {this.renderRedirect()}
                     Delete
                 </Button> }
