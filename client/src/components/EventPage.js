@@ -89,8 +89,8 @@ class Event extends React.Component {
 
   render() {
     const name = this.state.event?.name;
-    const starttime = moment(this.state.event?.starttime).format('MMMM Do YYYY, h:mm:ss a');
-    const endtime = moment(this.state.event?.endtime).format('MMMM Do YYYY, h:mm:ss a');
+    const starttime = moment(this.state.event?.starttime).format('MMMM Do YYYY, h:mm a');
+    const endtime = moment(this.state.event?.endtime).format('MMMM Do YYYY, h:mm a');
     const description = this.state.event?.description;
     const activitytype = this.state.event?.activitytype;
     const activitylevel = this.state.event?.activitylevel;
@@ -104,18 +104,18 @@ class Event extends React.Component {
         <Container>
           <Container>
           <Paper className="paper">
-            <Typography className="title" variant="h3">{name}</Typography>
-            <Typography className="nested" variant="body1">What is it? <span style={{marginLeft: "3px", color: 'black'}}>{description}</span></Typography>
-            <Typography className="nested"variant="body1">Type: <span style={{marginLeft: "3px", color: 'black'}}>{activitytype}</span></Typography>
-            <Typography className="nested"variant="body1">Level: <span style={{marginLeft: "3px", color: 'black'}}>{activitylevel}</span></Typography>
-            <Typography className="nested" variant="body1">Start:  <span style={{marginLeft: "3px", color: 'black', marginRight: "3px"}}>{starttime}</span></Typography>
-            <Typography className="nested"variant="body1">End: <span style={{marginLeft: "3px", color: 'black'}}>{endtime}</span></Typography>
-            <Typography className="nested" variant="body1">Location: <span style={{marginLeft: "3px", color: 'black'}}>{streetnumber} {streetname} {postalcode}</span></Typography>
+            <Typography className="title" variant="h3" style={{fontFamily: "'Montserrat', sans-serif", paddingBottom:'2rem'}}>{name}</Typography>
+            <Typography className="nested" variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>What is it? <span style={{marginLeft: "3px", color: 'black'}}>{description}</span></Typography>
+            <Typography className="nested"variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Type: <span style={{marginLeft: "3px", color: 'black'}}>{activitytype}</span></Typography>
+            <Typography className="nested"variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Level: <span style={{marginLeft: "3px", color: 'black'}}>{activitylevel}</span></Typography>
+            <Typography className="nested" variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Start:  <span style={{marginLeft: "3px", color: 'black', marginRight: "3px"}}>{starttime}</span></Typography>
+            <Typography className="nested"variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>End: <span style={{marginLeft: "3px", color: 'black'}}>{endtime}</span></Typography>
+            <Typography className="nested" variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Location: <span style={{marginLeft: "3px", color: 'black'}}>{streetnumber} {streetname} {postalcode}</span></Typography>
           </Paper>
           </Container>
 
           <Container>
-          <Paper style={{maxHeight: 200, overflow: 'auto'}}>
+          <Paper  className="paper" style={{maxHeight: 400, overflow: 'auto'}}>
           <List >
             {chatMessages?.map((chatMessage) => <ChatMessage name={chatMessage.firstname} content={chatMessage.content} time={chatMessage.time}/>)}
           </List>

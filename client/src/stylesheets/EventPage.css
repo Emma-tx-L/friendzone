@@ -1,13 +1,14 @@
 @import url("index.css");
 
+
 .title {
     color: var(--coralpink);
+
 }
 
 .paper {
-    padding: 15px;
-    margin-bottom: 7.5px;
-    margin-top: 7.5px;
+    margin: 4rem;
+    padding: 2rem;
 }
 
 .nested {
@@ -16,4 +17,5 @@
     font-weight: bold;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
+ 
 }

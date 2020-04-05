@@ -114,12 +114,12 @@ class EditEvent extends React.Component {
 
   render() {
       return (
-          <div>
+          <div style={{paddingLeft: '3rem', paddingTop: '3rem'}}>
             {this.state.redirect && (<Redirect to='/my-events'/>)}
 
             <form onSubmit={this.handleSubmit}>
               <React.Fragment>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom style={{fontFamily: "'Montserrat', sans-serif", paddingBottom: '1rem'}}>
           Enter your event details below
         </Typography>
         <Grid container spacing={3}>
