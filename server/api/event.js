@@ -91,8 +91,7 @@ router.post('/create-event', async (req, res)=>{
     const query = `INSERT INTO event VALUES('${eventID}', '${event.eventName}', '${event.startDate}', '${event.endDate}', '${event.description}', ${event.aptNumber}, '${event.streetName}', '${event.postalCode}', '${chatID}', '${event.activityType}', '${event.activityLevel}')`
     try {
         const {rows } = await db.query(query);
-        const { response } = await registerEvent(profileID, eventID);
-        console.log(response);
+        await registerEvent(profileID, eventID);
         res.json(rows);
     }
     catch(e) {
