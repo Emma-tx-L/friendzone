@@ -56,7 +56,7 @@ class Event extends React.Component {
           chatId = event.chatid;
           this.socket.emit('JOIN_CHAT', chatId);
           this.setState({
-            event: event,
+            // event: event,
             chatId: chatId
           });
         } else {
@@ -104,65 +104,77 @@ class Event extends React.Component {
   };
 
   handleChange = async (value) => {
+    let fetchColumns = [];
     if (value === 'description') {
-        this.setState({
-          checkboxes: {
-            name: false,
-            starttime: false,
-            endtime: false,
-            description: true,
-            streetnumber: false,
-            streetname: false,
-            postalcode: false,
-            activitytype: true,
-            activitylevel: true,
-          }})
+      fetchColumns = ['description','activitylevel','activitytype']
     }
-    if (value === 'location') {
+  if (value === 'location') {
+    fetchColumns = ['starttime','endtime','streetnumber','streetname','postalcode']
+  }
+  if (value === 'all'){
+    for(var key in this.state.checkboxes) {
+      fetchColumns.push(key);
+    }
+  }
+    await this.fetchEventData(value, this.state.eventID, fetchColumns);
+    this.updateStates(value)
+  };
+
+  updateStates(value) {
+    if (value === 'description') {
       this.setState({
         checkboxes: {
           name: false,
-          starttime: true,
-          endtime: true,
-          description: false,
-          streetnumber: true,
-          streetname: true,
-          postalcode: true,
-          activitytype: false,
-          activitylevel: false,
-        }
-      })
-    }
-    if (value === 'all'){
-      this.setState({
-        checkboxes: {
-          name: true,
-          starttime: true,
-          endtime: true,
+          starttime: false,
+          endtime: false,
           description: true,
-          streetnumber: true,
-          streetname: true,
-          postalcode: true,
+          streetnumber: false,
+          streetname: false,
+          postalcode: false,
           activitytype: true,
           activitylevel: true,
-        }
-      })
-    }
-    let checkboxes = this.state.checkboxes;
-    let checked = [];
-    for(var key in checkboxes) {
-      if (checkboxes[key] === true){
-        checked.push(key);
+        }})
+  }
+  if (value === 'location') {
+    this.setState({
+      checkboxes: {
+        name: false,
+        starttime: true,
+        endtime: true,
+        description: false,
+        streetnumber: true,
+        streetname: true,
+        postalcode: true,
+        activitytype: false,
+        activitylevel: false,
       }
-    }
-    await this.fetchEventData(this.state.eventID, checked)
-  };
+    })
+  }
+  if (value === 'all'){
+    this.setState({
+      checkboxes: {
+        name: true,
+        starttime: true,
+        endtime: true,
+        description: true,
+        streetnumber: true,
+        streetname: true,
+        postalcode: true,
+        activitytype: true,
+        activitylevel: true,
+      }
+    })
+  }
+  }
 
-  async fetchEventData(id, checked){
+  async fetchEventData(value, id, checked){
     try {
-      const res = await axios.get("http://localhost:5000/api/event/my-choices/" + checked + '/' + id);
+      const res = await axios.get("http://localhost:5000/api/event/my-choices/" + checked + '/' + id + '/' + value);
       if (res && res.status == 200){
-        console.log(res.data);
+        const event = res.data[0];
+        this.setState({
+          event: event
+        });
       }
     } 
     catch (err) {
@@ -194,21 +206,21 @@ class Event extends React.Component {
               variant="contained"
               value="all"
               checked={this.state.checkboxes.name}
-              style={{ borderRadius: 25, backgroundColor:'#5da4a9', color:'white'}}>Show all details</Button>
+              style={{ borderRadius: 25, backgroundColor:'#5da4a9', right:'1rem', bottom:'1rem', color:'white'}}>Show all details</Button>
              
              <Button
               onClick={() => this.handleChange('description')}
               variant="contained"
               value="description"
               checked={this.state.checkboxes.description}
-              style={{ borderRadius: 25,  backgroundColor:'#5da4a9', color:'white'}}>Show description</Button>
+              style={{ borderRadius: 25, right:'1rem', bottom:'1rem', backgroundColor:'#5da4a9', color:'white'}}>Show description</Button>
 
               <Button
               onClick={() => this.handleChange('location')}
               variant="contained"
               value="location"
               checked={this.state.checkboxes.description}
-              style={{ borderRadius: 25, backgroundColor:'#5da4a9', color:'white'}}>Show location and time</Button>
+              style={{ borderRadius: 25, backgroundColor:'#5da4a9', right:'1rem', bottom:'1rem', color:'white'}}>Show location and time</Button>
           
           { this.state.checkboxes.name  &&
             <Typography className="title" variant="h3" style={{fontFamily: "'Montserrat', sans-serif", paddingBottom:'2rem'}}>{name}</Typography>
@@ -262,7 +274,7 @@ class Event extends React.Component {
           />
           </Paper>
           </Container>
-          {isPast && <ReviewList eventid={eventid}/>}
+          {isPast && this.state.checkboxes.name && <ReviewList eventid={eventid}/>}
         </Container>
     );
   }
