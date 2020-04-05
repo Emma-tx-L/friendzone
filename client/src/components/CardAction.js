@@ -99,7 +99,7 @@ export default class CardAction extends React.Component{
             if (res.status != 200) {
                 alert("There was an error, please try again later.");
             } else if (res.data.length == 0) {
-                alert("You have delete the event");
+                alert("You have deleted the event");
             }
         } catch (e) {
             console.log(e);
