@@ -92,7 +92,8 @@ router.post('/create-event', async (req, res)=>{
     try {
         const {rows } = await db.query(query);
         const { response } = await registerEvent(profileID, eventID);
-        res.json(rows, response);
+        console.log(response);
+        res.json(rows);
     }
     catch(e) {
         console.log('error create event api' + e);
