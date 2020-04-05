@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import '../stylesheets/EventPage.css';
 import Typography from '@material-ui/core/Typography';
 import ReviewList from './ReviewList';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class Event extends React.Component {
   constructor(props) {
@@ -17,9 +19,21 @@ class Event extends React.Component {
     this.socket = io.connect("http://localhost:5000/");
     this.state = {
       event: null,
+      eventID: null,
       chat: null,
       chatId: null,
       message: "",
+      checkboxes: {
+        name: false,
+        starttime: false,
+        endtime: false,
+        description: false,
+        streetnumber: false,
+        streetname: false,
+        postalcode: false,
+        activitytype: false,
+        activitylevel: false,
+      }
     };
   }
   
@@ -32,6 +46,7 @@ class Event extends React.Component {
     });
     let pathArr = window.location.pathname.split('/');
     const id = pathArr[2];
+    this.setState({eventID: id});
     let chatId;
       try{
         const res = await axios.get("http://localhost:5000/api/event/my-events/" + id);
@@ -87,6 +102,32 @@ class Event extends React.Component {
     }
   };
 
+  handleChange = async (event) => {
+    this.setState(Object.assign(this.state.checkboxes, { [event.target.name]: event.target.checked }));
+    let checkboxes = this.state.checkboxes;
+    let checked = [];
+    for(var key in checkboxes) {
+      if (checkboxes[key] === true){
+        checked.push(key);
+      }
+    }
+    await this.fetchEventData(this.state.eventID, checked);
+  };
+
+  async fetchEventData(id, checked){
+    console.log(checked, id)
+    try {
+      const res = await axios.get("http://localhost:5000/api/event/choices",  { data: {id: id, checked: checked}});
+      if (res && res.status == 200){
+        console.log(res.data[0]);
+      }
+    } 
+    catch (err) {
+      console.log('err fetching event attr' + err);
+    }
+  }
+
+
   render() {
     const name = this.state.event?.name;
     const starttime = moment(this.state.event?.starttime).format('MMMM Do YYYY, h:mm a');
@@ -104,6 +145,37 @@ class Event extends React.Component {
         <Container>
           <Container>
           <Paper className="paper">
+          {/* <FormControlLabel
+            control={ <Checkbox checked={this.state.all} onChange={this.handleChange} name="all" color="primary"/>} label="All"
+          /> */}
+           <FormControlLabel
+            control={ <Checkbox checked={this.state.name} onChange={this.handleChange} name="name" color="primary"/>} label="Name"
+          />
+           <FormControlLabel
+            control={ <Checkbox checked={this.state.starttime} onChange={this.handleChange} name="starttime" color="primary"/>} label="Start Time"
+          />
+          <FormControlLabel
+            control={ <Checkbox checked={this.state.endtime} onChange={this.handleChange} name="endtime" color="primary"/>} label="End Time"
+          />
+          <FormControlLabel
+            control={ <Checkbox checked={this.state.description} onChange={this.handleChange} name="description" color="primary"/>} label="Description"
+          />
+           <FormControlLabel
+            control={ <Checkbox checked={this.state.streetnumber} onChange={this.handleChange} name="streetnumber" color="primary"/>} label="Apt Number"
+          />
+           <FormControlLabel
+            control={ <Checkbox checked={this.state.streetname} onChange={this.handleChange} name="streetname" color="primary"/>} label="Street"
+          />
+          <FormControlLabel
+            control={ <Checkbox checked={this.state.postalcode} onChange={this.handleChange} name="postalcode" color="primary"/>} label="Postal Code"
+          />
+          <FormControlLabel
+            control={ <Checkbox checked={this.state.activitytype} onChange={this.handleChange} name="activitytype" color="primary"/>} label="Activity Type"
+          />
+          <FormControlLabel
+            control={ <Checkbox checked={this.state.activitylevel} onChange={this.handleChange} name="activitylevel" color="primary"/>} label="Activity Level"
+          />
+
             <Typography className="title" variant="h3" style={{fontFamily: "'Montserrat', sans-serif", paddingBottom:'2rem'}}>{name}</Typography>
             <Typography className="nested" variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>What is it? <span style={{marginLeft: "3px", color: 'black'}}>{description}</span></Typography>
             <Typography className="nested"variant="body1" style={{fontFamily: "'Montserrat', sans-serif"}}>Type: <span style={{marginLeft: "3px", color: 'black'}}>{activitytype}</span></Typography>

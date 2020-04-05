@@ -283,4 +283,29 @@ router.post('/delete/', async (req, res) => {
     }
 })
 
+
+/**
+ *  Gets specific event details based on user input 
+ */
+router.get('/choices/', async (req, res) => {
+    console.log('hit');
+    let eventId = req.body.data.id;
+    let choices = req.body.data.checked;
+    const columns = choices.join(', ');
+    console.log(req.params.id, req.body.data);
+    const query = 
+    `SELECT ${columns} 
+     FROM event
+     WHERE id=$1;`;
+    const values = [eventId];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+
 module.exports = router;
