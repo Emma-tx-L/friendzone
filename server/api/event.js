@@ -11,7 +11,7 @@ async function setChat(id, eventName) {
     const query = `INSERT INTO chat VALUES('${id}', '${eventName}')`;
     try {
         const { response } = await db.query(query);
-        res.json(response);
+        return response;
     } catch(e){
         console.log('error with setchat' + e);
     }
@@ -27,7 +27,7 @@ async function setRegion(postalCode, province, city) {
         const query = `INSERT INTO region VALUES('${postalCode}', '${province}', '${city}')`;
         try {
             const { response } = await db.query(query);
-            res.json(response);
+            return response;
         } catch(e){
             console.log('error setting region' + e);
         }
@@ -44,7 +44,7 @@ async function setAddress(streetNumber, streetName, postalCode) {
         const query = `INSERT INTO address VALUES(${streetNumber}, '${streetName}', '${postalCode}')`;
         try {
             const {response} = await db.query(query);
-            res.json(response);
+            return response;
         } catch(e){
             console.log('error setting address' + e);
         }
@@ -58,7 +58,7 @@ async function updateChat(id, eventName) {
     const query = `UPDATE chat SET name='${eventName}' WHERE id='${id}'`
     try {
         const { response } = await db.query(query);
-        res.json(response);
+        return response;
     } catch(e){
         console.log('error with update chat' + e);
     }
@@ -71,7 +71,7 @@ async function registerEvent(profileID, eventID) {
     const query = `INSERT INTO registered VALUES('${profileID}', '${eventID}', true)`;
     try {
         const { response } = await db.query(query);
-        res.json(response);
+        return response;
     } catch(e){
         console.log('error registering event' + e);
     }

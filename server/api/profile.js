@@ -37,9 +37,9 @@ async function updateProfile(profile){
     const query = `UPDATE profile SET email='${profile.email}', dob='${profile.dob}', firstname='${profile.firstname}', lastname='${profile.lastname}' WHERE id='${profile.id}'`;
     try {
         const {rows} = await db.query(query);
-        res.json(rows);
+        return rows;
     } catch(e){
-        console.log('error with update profile' + e);
+        console.log('error with update profile ' + e);
     }
 }
 
@@ -47,7 +47,7 @@ async function createProfile(profile){
     const query = `INSERT INTO profile VALUES('${profile.id}', '${profile.email}', '${profile.dob}', '${profile.firstname}', '${profile.lastname}')`;
     try {
         const {rows} = await db.query(query);
-        res.json(rows);
+        return rows;
     } catch(e){
         console.log('error with create profile' + e);
     }

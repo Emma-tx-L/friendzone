@@ -1,5 +1,9 @@
 @import url("index.css");
 
+main {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .icons {
   color: var(--teal);
   margin: -7px 1rem;
@@ -17,21 +21,22 @@
 
 .circle-icon {
   text-align: center;
-  margin: 0;
   background: var(--fadedblue);
   border-radius: 50%;
   width: 50px;
   height: 50px;
+  margin: 0.5rem auto;
 }
 
 .name {
   margin: 0.75rem var(--m-unrelatedElements);
   font-size: 1rem;
   text-align: center;
+  color: grey
 }
 
 .nav-btn {
   text-decoration: none;
   padding: var(--p-relatedElements);
-  color: black;
+  color: grey
 }

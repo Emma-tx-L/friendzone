@@ -7,8 +7,27 @@
 
 .interests {
   list-style: none;
+  border-radius: 25px;
+  width: fit-content;
+  margin: 0.75rem;
 }
 
-.list-text {
-  padding: calc(var(--p-unrelatedElements) * 2);
+.list-text, .itemIcon {
+  padding: 1rem;
+}
+
+.interestsList {
+  margin-top: 2rem !important;
+}
+
+ul {
+  padding-left: 0;
+}
+
+.listTitle{
+  font-weight: 600;
+}
+
+form {
+  margin: ;
 }

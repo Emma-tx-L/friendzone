@@ -53,7 +53,7 @@ export default class CategoryCard extends React.Component{
                 >
                 </CardMedia>
                 <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: "'Montserrat', sans-serif"}}>
                     {this.props.type}
                 </Typography>
                 </CardContent>

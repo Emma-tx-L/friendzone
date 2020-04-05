@@ -4,7 +4,7 @@ const Router = require('express-promise-router');
 var router = new Router();
 
 /**
- *  Gets interests associated with a profile 
+ *  Gets all interests associated with a profile 
  */
 router.get('/:id', async (req, res) => {
     let profileID = req.params.id;
@@ -22,63 +22,40 @@ router.get('/:id', async (req, res) => {
 })
 
 /**
- *  Adds an interest
+ *  Helper to remove all interests associated with a profile
+ */
+async function removeAll(profileID){
+    const query = `DELETE FROM interests WHERE profileid='${profileID}'`
+    try {
+        const { rows } = await db.query(query);
+        return rows;
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+  }
+
+/**
+ *  Adds all interests associated with a profile 
  */
 router.post('/set', async (req, res) => {
-    const interest = req.body.data.interest;
-    const profileID = req.body.data.profile;
+    const interests = req.body.data.interests;
     
-    const checkExists = 
-    `SELECT * FROM interests WHERE profileid='${profileID}' AND activitytype='${interest.type}' AND activitylevel='${interest.level}'`;
-    const { rows } = await db.query(checkExists);
-    if (rows.length === 0) {
-        await setInterest(interest, profileID);
+    const profileID = req.body.data.profileID;
+    const response = await removeAll(profileID);
+    if (response && interests.length > 0){
+        await Promise.all(interests.map(async (interest) => {
+            const query = `INSERT INTO interests VALUES('${profileID}','${interest.type}','${interest.level}')`;
+            try {
+                const { rows } = await db.query(query);
+                res.json(rows);
+            } catch(e){
+                console.log('error: ' + e);
+                return res.json(e);
+            }
+          }));    
     }
-})
-
-/**
- *  Helper to add an interest
- */
-async function setInterest(interest, profileID){
-  const query = 
-  `INSERT INTO interests VALUES('${profileID}','${interest.type}','${interest.level}')`;
-  try {
-      const { rows } = await db.query(query);
-      res.json(rows);
-  } catch(e){
-      console.log('error: ' + e);
-      return res.json(e);
-  }
-}
-
-/**
- *  Removes an interest
- */
-router.post('/remove', async (req, res) => {
-  const interest = req.body.data.interest;
-  const profileID = req.body.data.profile;
-  
-  const checkExists = 
-  `SELECT * FROM interests WHERE profileid='${profileID}' AND activitytype='${interest.type}' AND activitylevel='${interest.level}'`;
-  const { rows } = await db.query(checkExists);
-  if (rows.length > 0) {
-      await removeInterest(interest, profileID);
-  }
-})
-
-/**
- *  Helper to remove an interest
- */
-async function removeInterest(interest, profileID){
-  const query = 
-  `DELETE FROM interests WHERE profileid='${profileID}' AND activitytype='${interest.type}' AND activitylevel='${interest.level}')`;
-  try {
-      const { rows } = await db.query(query);
-      res.status(200);
-  } catch(e){
-      console.log('error: ' + e);
-      return res.json(e);
-  }
-}
+    res.json(response);
+});
 
 module.exports = router;
