@@ -111,7 +111,7 @@ class Profile extends React.Component {
     
         <Grid container class="main" xs={12} style={{paddingLeft:'5rem'}}>
           <Grid item xs={10}>
-            <h1>MY PROFILE</h1>
+            <h1>YOUR PROFILE</h1>
           </Grid>
           <Grid item xs={10}>
             <div className="profile">
@@ -121,14 +121,14 @@ class Profile extends React.Component {
             </div>
             </div>
             <div class="information">
-              <p className="name">{firstname} {lastname}</p>
+              <p className="name" style={{ color:'black', fontWeight:'bold', fontSize:'1.5rem'}}>{firstname} {lastname}</p>
               <p className="email">{email}</p>
               <p className="dob">{dob}</p>
 
-              <ul>
-                {this.state.profile.interests.length > 0 && <p className="interests">My Interests</p> }
+              <ul >
+                {this.state.profile.interests.length > 0 && <p className="interests" style={{ paddingTop: '1.5rem', width:'auto', fontWeight:'bold'}}>My Interests</p> }
               { this.state.profile.interests && this.state.profile.interests.map((item, index) => (
-              <li key={index} className="interests" >
+              <li key={index} className="interests" style={{ width:"auto"}} >
                 <span className="list-text"> {item.type}, {item.level} </span>
               </li>
             ))}
@@ -140,7 +140,7 @@ class Profile extends React.Component {
             <Button
               onClick={() => this.handleEditProfile()}
               variant="contained"
-              style={{ borderRadius: 25,  backgroundColor:'#5da4a9', color:'white'}}>Edit</Button>
+              style={{ borderRadius: 25, position:'absolute', right:'245px', backgroundColor:'#5da4a9', color:'white'}}>Edit</Button>
                 {this.handleRedirect()}
           </Grid>
         </Grid>

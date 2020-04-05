@@ -231,9 +231,9 @@ class EditProfile extends React.Component {
 
   render() {
     return (
-      <Container className="main">
+      <Container className="main" style={{ paddingLeft: '5rem'}}>
         {this.state.redirect && (<Redirect to='/profile'/>)}
-        <h1 style={{ paddingTop: '1.5rem', paddingLeft: '4rem', paddingBottom: '0.5rem'}}>Edit Profile</h1>
+        <h1 style={{ paddingTop: '1.5rem', paddingLeft: '4rem', paddingBottom: '0.5rem'}}>EDIT PROFILE</h1>
         <form style={{ marginLeft: '4rem'}} onSubmit={this.handleSubmit}>
         <Grid className="content" container xs={12} spacing={2}>
           <Grid item xs={4}>
@@ -332,8 +332,8 @@ class EditProfile extends React.Component {
           </Grid>
         </Grid>
 
-        <Grid item>
-        <Button type="submit" variant="contained" style={{ borderRadius: 25, position:'absolute', right:'175px', marginTop:'50px', backgroundColor:'#5da4a9',   color:'white'}}> Save </Button>
+        <Grid item >
+        <Button type="submit" variant="contained" style={{ borderRadius: 25, position:'absolute', right:'200px', margin:'3rem', backgroundColor:'#5da4a9',   color:'white'}}> Save </Button>
         </Grid>
 
         </form>

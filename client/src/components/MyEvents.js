@@ -94,7 +94,7 @@ export default class MyEvents extends React.Component {
         return (
         <Container component="main">
             <Container maxWidth="md" style={{position: 'relative', height: '15vh'}}>
-                <Typography variant="h3" style={{ position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '65%', left: '3vh', transform: 'translateY(-50%)'}}>
+                <Typography variant="h3" style={{ fontFamily: "'Montserrat', sans-serif", position: 'absolute', fontWeight:'bold',letterSpacing:'0.05em', top: '65%', left: '3vh', transform: 'translateY(-50%)'}}>
                     YOUR EVENTS
                 </Typography>
             </Container>
@@ -102,14 +102,14 @@ export default class MyEvents extends React.Component {
                 <Button
                     onClick={() => this.handleCreateEvent()}
                     variant="contained"
-                    style={{ borderRadius: 25, position:'absolute', right:'50px', backgroundColor:'#5da4a9', color:'white'}}
+                    style={{ borderRadius: 25, position:'absolute', right:'70px', backgroundColor:'#5da4a9', color:'white'}}
                 > 
                     Create Event
                 </Button>
                 {this.handleRedirect()}
             </Container>
             <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
-            <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+            <Typography variant="h6" style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', transform: 'translateY(-50%)'}}>
                     Upcoming Events
                 </Typography>
             </Container>
@@ -119,7 +119,7 @@ export default class MyEvents extends React.Component {
                 delete = {false}
             />
             <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
-                <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+                <Typography variant="h6" style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', transform: 'translateY(-50%)'}}>
                     Created By You
                 </Typography>
             </Container>
@@ -129,7 +129,7 @@ export default class MyEvents extends React.Component {
                 delete = {true}
             />
             <Container maxWidth="md" style={{position:'relative', height: '10vh'}}>
-                <Typography variant="h6" style={{position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', left: '5vh', transform: 'translateY(-50%)'}}>
+                <Typography variant="h6" style={{fontFamily: "'Montserrat', sans-serif", position:'absolute', color:'grey', letterSpacing:'0.05em', top: '50%', transform: 'translateY(-50%)'}}>
                     Past Events
                 </Typography>
             </Container>
