@@ -330,19 +330,22 @@ router.post('/delete/', async (req, res) => {
 /**
  *  Gets specific event details based on user input 
  */
-router.get('/choices/', async (req, res) => {
-    console.log('hit');
-    let eventId = req.body.data.id;
-    let choices = req.body.data.checked;
-    const columns = choices.join(', ');
-    console.log(req.params.id, req.body.data);
+router.get('/my-choices/:checked/:id/:value', async (req, res) => {
+    let id = req.params.id;
+    let checked = req.params.checked;
+    let value = req.params.value
     const query = 
-    `SELECT ${columns} 
+    `SELECT ${checked} 
      FROM event
-     WHERE id=$1;`;
-    const values = [eventId];
+     WHERE id='${id}';`;
     try {
-        const { rows } = await db.query(query, values);
+        const { rows } = await db.query(query);
+        if (value !== 'description'){
+            const postalcode = rows[0].postalcode;
+            const region = await getRegion(postalcode);
+            rows[0].city = region[0].city;
+            rows[0].province = region[0].province;
+        }
         res.json(rows);
     } catch(e){
         console.log('error: ' + e);
