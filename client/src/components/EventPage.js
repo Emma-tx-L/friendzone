@@ -10,7 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import '../stylesheets/EventPage.css';
 import Typography from '@material-ui/core/Typography';
 import ReviewList from './ReviewList';
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
+import { ListItem, ListItemText } from "@material-ui/core";
 
 class Event extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Event extends React.Component {
       chat: null,
       chatId: null,
       message: "",
+      usersList: [],
       checkboxes: {
         name: false,
         starttime: false,
@@ -167,6 +169,32 @@ class Event extends React.Component {
   }
   }
 
+  handleUsersDisplayRegistered = async () => {
+    let pathArr = window.location.pathname.split('/');
+    const id = pathArr[2];
+    try{
+      const res = await axios.get("http://localhost:5000/api/event/my-events/registered/" + id);
+      if (res && res.status == 200){
+        this.setState({ usersList: res.data })
+      }
+    } catch (err){
+      console.log('err: ' + err);
+    }
+  }
+
+  handleUsersDisplayNotRegistered = async () => {
+    let pathArr = window.location.pathname.split('/');
+    const id = pathArr[2];
+    try{
+      const res = await axios.get("http://localhost:5000/api/event/my-events/notregistered/" + id);
+      if (res && res.status == 200){
+        this.setState({ usersList: res.data })
+      }
+    } catch (err){
+      console.log('err: ' + err);
+    }
+  }
+
   async fetchEventData(value, id, checked){
     try {
       const res = await axios.get("http://localhost:5000/api/event/my-choices/" + checked + '/' + id + '/' + value);
@@ -195,6 +223,7 @@ class Event extends React.Component {
     const chatMessages = this.state.chat && this.state.chat;
     const eventid = this.state.event?.id;
     const isPast = this.state.event && moment(this.state.event?.starttime).isBefore(moment());
+    const usersList = this.state.usersList;
     return (
         <Container>
           <Container>
@@ -275,6 +304,17 @@ class Event extends React.Component {
           </Paper>
           </Container>
           {isPast && this.state.checkboxes.name && <ReviewList eventid={eventid}/>}
+          <Paper className="paper" style={{maxHeight: 400, overflow: 'auto'}}>
+            <List>
+              {usersList?.map((user) =>
+              <ListItem divider>
+                  <ListItemText primary={user.email} />
+              </ListItem>)
+              }
+            </List>
+            <Button style={{ marginRight: "1em" }} variant="contained" color="primary" onClick={this.handleUsersDisplayRegistered}>Display all registered users</Button>
+            <Button variant="contained" color="primary" onClick={this.handleUsersDisplayNotRegistered}>Display users who are not registered</Button>
+          </Paper>
         </Container>
     );
   }

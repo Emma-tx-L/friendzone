@@ -172,6 +172,49 @@ router.get('/my-events/:id', async (req, res) => {
 })
 
 /**
+ *  Display users who are registered for a given event
+ */
+
+router.get('/my-events/registered/:id', async (req, res) => {
+    let eventId = req.params.id;
+    const query = 
+        `SELECT p.id, p.email, p.firstname, p.lastname, r.EventID, r.isAdmin
+        FROM profile p, registered r, event e
+        WHERE e.id=r.eventid AND r.profileid=p.id
+        AND e.id=$1`
+    const values = [eventId];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
+ *  Display users who are not registered for a given event
+ */
+router.get('/my-events/notregistered/:id', async (req, res) => {
+    let eventId = req.params.id;
+    const query = 
+        `SELECT p.id, p.email, p.firstname, p.lastname
+        FROM profile p
+        WHERE p.id NOT IN
+        (SELECT r.profileid
+        FROM registered r, event e
+        WHERE r.eventid=e.id AND e.id=$1)`
+    const values = [eventId];
+    try {
+        const { rows } = await db.query(query, values);
+        res.json(rows);
+    } catch(e){
+        console.log('error: ' + e);
+        return res.json(e);
+    }
+})
+
+/**
  *  Gets region associated with event
  */
 async function getRegion(postalCode) {
