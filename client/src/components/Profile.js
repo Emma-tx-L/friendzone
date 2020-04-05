@@ -140,7 +140,7 @@ class Profile extends React.Component {
             <Button
               onClick={() => this.handleEditProfile()}
               variant="contained"
-              style={{ borderRadius: 25, position:'absolute', right:'245px', backgroundColor:'#5da4a9', color:'white'}}>Edit</Button>
+              style={{ borderRadius: 25, position:'absolute', right:'245px', marginBottom:'5vh', backgroundColor:'#5da4a9', color:'white'}}>Edit</Button>
                 {this.handleRedirect()}
           </Grid>
         </Grid>
