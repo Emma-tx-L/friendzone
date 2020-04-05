@@ -18,6 +18,8 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    fontFamily: "'Montserrat', sans-serif",
+    fontWeight: '600'
   },
   drawer: {
     width: drawerWidth,
@@ -36,8 +38,8 @@ export default function Navbar() {
   const login = 'http://localhost:3000/login'
   const loggedIn = localStorage.getItem('profileID');
   let location = window.location.href;
-  const firstName = localStorage.getItem('firstname');
-  const lastName = localStorage.getItem('lastname');
+  const firstName = localStorage.getItem('firstname')?.toLocaleUpperCase();
+  const lastName = localStorage.getItem('lastname')?.toLocaleUpperCase();
 
 
   const handleLogout = () => {
@@ -57,38 +59,38 @@ export default function Navbar() {
         anchor="left"
       >
         <div className={classes.toolbar} />
-        <div className="user">
+        {/* <div className="user"> */}
           <div className="circle-icon">
           <PersonOutlineIcon className="user-icon"/>
           </div>
       <div className="name">{`${firstName} ${lastName}`}</div>
-        </div>
-        <List>
+        {/* </div> */}
+        <List style={{marginTop: '2rem'}}>
           <ListItem button>
             <Link icon={<HomeIcon/>} className="nav-btn" to="/home">
               <HomeIcon className="icons"/>
-              <span>Home</span>
+              <span>HOME</span>
             </Link>
           </ListItem>
           <ListItem button>
             <Link className="nav-btn" to="/profile">
                 <PersonIcon className="icons"/>
                 <span>
-                Profile</span>
+                PROFILE</span>
             </Link>
           </ListItem>
           <ListItem button>
             <Link className="nav-btn" to="/my-events">
               <EventIcon className="icons"/>
               <span>
-              Your Events</span>
+              YOUR EVENTS</span>
             </Link>
           </ListItem>
           <ListItem button onClick={handleLogout}>
             <div className="nav-btn">
               <ExitToAppIcon className="icons"/>
               <span>
-              Logout</span>
+              LOGOUT</span>
             </div>
           </ListItem>
         </List>

@@ -1,0 +1,52 @@
+@import url("index.css");
+
+.main {
+  font-family: 'Montserrat', sans-serif;
+  margin: 4rem;
+}
+
+h1 {
+  font-size: 2.75rem;
+}
+
+.profile {
+  text-align: center;
+  margin: 3rem 0;
+  border: 0.5px rgb(211, 211, 211, 0.6) solid;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.2);
+}
+
+.header {
+  width: 100%;
+  height: 10vh;
+  background: var(--yellow);
+  padding-top: 100px;
+}
+
+.main-circle-icon {
+  position: relative;
+  text-align: center;
+  margin: 0;
+  background: var(--fadedblue);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main-user-icon {
+  color: var(--teal);
+  margin: 20%;
+  font-size: 3.5rem !important;
+}
+
+.information {
+  padding: calc(var(--p-unrelatedElements) * 2);
+}
+
+.information p {
+  padding: 5px;
+}

@@ -1,0 +1,33 @@
+@import url("index.css");
+
+.main {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
+
+.interests {
+  list-style: none;
+  border-radius: 25px;
+  width: fit-content;
+  margin: 0.75rem;
+}
+
+.list-text, .itemIcon {
+  padding: 1rem;
+}
+
+.interestsList {
+  margin-top: 2rem !important;
+}
+
+ul {
+  padding-left: 0;
+}
+
+.listTitle{
+  font-weight: 600;
+}
+
+form {
+  margin: ;
+}

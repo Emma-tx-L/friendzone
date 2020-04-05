@@ -3,12 +3,12 @@ const Router = require('express-promise-router');
 
 var router = new Router();
 
-router.get('/userprofile', async (req, res) => {
-    let user = req.query.user;
+router.get('/:id', async (req, res) => {
+    let userID = req.params.id;
     const query = 
     `SELECT * FROM profile p WHERE p.id=$1`;
 	
-    const values = [user];
+    const values = [userID];
     try {
         const { rows } = await db.query(query, values);
         res.json(rows);
@@ -37,9 +37,9 @@ async function updateProfile(profile){
     const query = `UPDATE profile SET email='${profile.email}', dob='${profile.dob}', firstname='${profile.firstname}', lastname='${profile.lastname}' WHERE id='${profile.id}'`;
     try {
         const {rows} = await db.query(query);
-        res.json(rows);
+        return rows;
     } catch(e){
-        console.log('error with update profile' + e);
+        console.log('error with update profile ' + e);
     }
 }
 
@@ -47,7 +47,7 @@ async function createProfile(profile){
     const query = `INSERT INTO profile VALUES('${profile.id}', '${profile.email}', '${profile.dob}', '${profile.firstname}', '${profile.lastname}')`;
     try {
         const {rows} = await db.query(query);
-        res.json(rows);
+        return rows;
     } catch(e){
         console.log('error with create profile' + e);
     }
